@@ -106,9 +106,10 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         how='outer'         # Especifica que es un INNER JOIN
     )
 
-    ping_indoor_7_dias = RESULTADO_INDOOR[RESULTADO_INDOOR['ULTIMO PING ONLINE'] == 'No registra ping online en mas de 7 días'].copy()
-    RESULTADO_INDOOR = RESULTADO_INDOOR[RESULTADO_INDOOR['ULTIMO PING ONLINE'] != 'No registra ping online en mas de 7 días']
 
+    es_ping_mayor_7 = RESULTADO_INDOOR['ULTIMO PING ONLINE'].astype(str).str.contains('mas de 7', case=False, na=False)
+    ping_indoor_7_dias = RESULTADO_INDOOR[es_ping_mayor_7].copy()
+    RESULTADO_INDOOR = RESULTADO_INDOOR[~es_ping_mayor_7].copy()
     ping_indoor_7_dias['VERIFICACION'] = ping_indoor_7_dias['CONTADOR DEL DIA'] > 7
 
 
@@ -124,10 +125,10 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
 
     RESULTADO_INDOOR.to_csv('cruce_trafico_indoor.csv', index=False)
 
-
-    ping_outdoor_7_dias = RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ULTIMO PING ONLINE'] == 'No registra ping online en mas de 7 días'].copy()
-    RESULTADO_OUTDOOR = RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ULTIMO PING ONLINE'] != 'No registra ping online en mas de 7 días']
-
+    es_ping_mayor_7 = RESULTADO_OUTDOOR['ULTIMO PING ONLINE'].astype(str).str.contains('mas de 7', case=False, na=False)
+    ping_outdoor_7_dias = RESULTADO_OUTDOOR[es_ping_mayor_7].copy()
+    RESULTADO_OUTDOOR = RESULTADO_OUTDOOR[~es_ping_mayor_7].copy()
+    
     ping_outdoor_7_dias['VERIFICACION'] = ping_outdoor_7_dias['CONTADOR DEL DIA'] > 7
 
 
