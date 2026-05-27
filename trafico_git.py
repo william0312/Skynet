@@ -1,5 +1,4 @@
-
-
+# -*- coding: latin-1 -*-
 import pandas as pd
 import numpy as np
 
@@ -50,13 +49,13 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
 
     PQRSD_TRATADA = PQRSD_TRATADA[PQRSD_TRATADA['Estado']!='Cerrar']
     PQRSD_TRATADA_INDOOR = PQRSD_TRATADA[PQRSD_TRATADA['SUBCATEGORIA'].isin([
-        'CD-SIN TRÁFICO DE INTERNET 24 HORAS AP INTERIOR',
-        'CD-FALLA SIN TRÁFICO DE INTERNET 24 HORAS AP INTERIOR'
+        'CD-SIN TRÃFICO DE INTERNET 24 HORAS AP INTERIOR',
+        'CD-FALLA SIN TRÃFICO DE INTERNET 24 HORAS AP INTERIOR'
         ])]
 
     PQRSD_TRATADA_OUTDOOR = PQRSD_TRATADA[PQRSD_TRATADA['SUBCATEGORIA'].isin([
-        'CD-SIN TRÁFICO DE INTERNET 24 HORAS AP EXTERIOR',
-        'CD-FALLA SIN TRÁFICO DE INTERNET 24 HORAS AP EXTERIOR'
+        'CD-SIN TRÃFICO DE INTERNET 24 HORAS AP EXTERIOR',
+        'CD-FALLA SIN TRÃFICO DE INTERNET 24 HORAS AP EXTERIOR'
         ])]
 
     #print(PQRSD_TRATADA_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 37848])
@@ -107,10 +106,10 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         how='outer'         # Especifica que es un INNER JOIN
     )
 
-    ping_indoor_7_dias = RESULTADO_INDOOR[RESULTADO_INDOOR['ULTIMO PING ONLINE'] == 'No registra ping online en mas de 7 días'].copy()
-    RESULTADO_INDOOR = RESULTADO_INDOOR[RESULTADO_INDOOR['ULTIMO PING ONLINE'] != 'No registra ping online en mas de 7 días']
+    ping_indoor_7_dias = RESULTADO_INDOOR[RESULTADO_INDOOR['ULTIMO PING ONLINE'] == 'No registra ping online en mas de 7 dÃ­as'].copy()
+    RESULTADO_INDOOR = RESULTADO_INDOOR[RESULTADO_INDOOR['ULTIMO PING ONLINE'] != 'No registra ping online en mas de 7 dÃ­as']
 
-    ping_indoor_7_dias['VERIFICACION'] = ping_indoor_7_dias['CONTADOR DEL DÍA'] > 7
+    ping_indoor_7_dias['VERIFICACION'] = ping_indoor_7_dias['CONTADOR DEL DÃA'] > 7
 
 
     RESULTADO_INDOOR['ULTIMO PING ONLINE'] = pd.to_datetime(RESULTADO_INDOOR['ULTIMO PING ONLINE'])
@@ -119,17 +118,17 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
      (pd.Timestamp('today') - pd.Timedelta(days=1)).normalize() - RESULTADO_INDOOR['ULTIMO PING ONLINE'].dt.normalize()
     ).dt.days
 
-    RESULTADO_INDOOR ['VERIFICACION'] = RESULTADO_INDOOR['Dias_diferencia']==RESULTADO_INDOOR['CONTADOR DEL DÍA']
+    RESULTADO_INDOOR ['VERIFICACION'] = RESULTADO_INDOOR['Dias_diferencia']==RESULTADO_INDOOR['CONTADOR DEL DÃA']
 
     RESULTADO_INDOOR = pd.concat([RESULTADO_INDOOR, ping_indoor_7_dias], ignore_index=True)
 
     RESULTADO_INDOOR.to_csv('cruce_trafico_indoor.csv', index=False)
 
 
-    ping_outdoor_7_dias = RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ULTIMO PING ONLINE'] == 'No registra ping online en mas de 7 días'].copy()
-    RESULTADO_OUTDOOR = RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ULTIMO PING ONLINE'] != 'No registra ping online en mas de 7 días']
+    ping_outdoor_7_dias = RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ULTIMO PING ONLINE'] == 'No registra ping online en mas de 7 dÃ­as'].copy()
+    RESULTADO_OUTDOOR = RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ULTIMO PING ONLINE'] != 'No registra ping online en mas de 7 dÃ­as']
 
-    ping_outdoor_7_dias['VERIFICACION'] = ping_outdoor_7_dias['CONTADOR DEL DÍA'] > 7
+    ping_outdoor_7_dias['VERIFICACION'] = ping_outdoor_7_dias['CONTADOR DEL DÃA'] > 7
 
 
     RESULTADO_OUTDOOR['ULTIMO PING ONLINE'] = pd.to_datetime(RESULTADO_OUTDOOR['ULTIMO PING ONLINE'])
@@ -139,7 +138,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     ).dt.days
 
 
-    RESULTADO_OUTDOOR ['VERIFICACION'] = RESULTADO_OUTDOOR['Dias_diferencia']==RESULTADO_OUTDOOR['CONTADOR DEL DÍA']
+    RESULTADO_OUTDOOR ['VERIFICACION'] = RESULTADO_OUTDOOR['Dias_diferencia']==RESULTADO_OUTDOOR['CONTADOR DEL DÃA']
 
     RESULTADO_OUTDOOR = pd.concat([RESULTADO_OUTDOOR, ping_outdoor_7_dias], ignore_index=True)
 
