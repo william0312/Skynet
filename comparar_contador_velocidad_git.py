@@ -70,9 +70,9 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
     #PQRSD_TRATADA_VELOCIDAD['ID_Beneficiario'] = PQRSD_TRATADA_VELOCIDAD['ID_Beneficiario'].replace(['nan', '<NA>', 'None', 'nan.0'], np.nan)
 
     # 1. Convertimos la columna a texto
-    cruce['Identificador beneficiario'] = cruce['Identificador beneficiario'].astype(str)
+    cruce['DISPOSITIVO'] = cruce['DISPOSITIVO'].astype(str)
     # 2. Reemplazamos la palabra "nan" (y sus variantes) por verdaderos nulos
-    cruce['Identificador beneficiario'] = cruce['Identificador beneficiario'].replace(['nan', '<NA>', 'None', 'nan.0'], np.nan)
+    cruce['DISPOSITIVO'] = cruce['DISPOSITIVO'].replace(['nan', '<NA>', 'None', 'nan.0'], np.nan)
 
 
     cruce = pd.merge(
