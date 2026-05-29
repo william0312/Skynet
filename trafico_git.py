@@ -143,6 +143,8 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
 
     RESULTADO_OUTDOOR = pd.concat([RESULTADO_OUTDOOR, ping_outdoor_7_dias], ignore_index=True)
 
+    cruce['CANTIDAD_PQRSD'] = cruce.groupby('DISPOSITIVO')['ID'].transform('count')
+
     return (RESULTADO_OUTDOOR,RESULTADO_INDOOR)
 
 
