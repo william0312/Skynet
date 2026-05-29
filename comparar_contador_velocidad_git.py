@@ -106,10 +106,10 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
     (cruce['DIAS SIN MEDICION'] < 5) & (cruce['CANTIDAD_PQRSD'] == 0),
     
     # Regla 2: Entre 5 y 8 días Y exactamente 1 registro
-    (cruce['DIAS SIN MEDICION'] >= 5) & (cruce['DIAS SIN MEDICION'] <= 8) & (cruce['CANTIDAD_PQRSD'] == 1),
+    (cruce['DIAS SIN MEDICION'] >= 5) & (cruce['DIAS SIN MEDICION'] < 8) & (cruce['CANTIDAD_PQRSD'] == 1),
     
     # Regla 3: Mayor a 8 días (Agrego esto por si acaso, asumiendo que debe tener 2 o más registros)
-    (cruce['DIAS SIN MEDICION'] > 8) & (cruce['CANTIDAD_PQRSD'] >= 2)
+    (cruce['DIAS SIN MEDICION'] >= 8) & (cruce['CANTIDAD_PQRSD'] >= 2)
     ]
 
     # 2. Si se cumple alguna de las reglas de arriba, el resultado es 'Bien'
