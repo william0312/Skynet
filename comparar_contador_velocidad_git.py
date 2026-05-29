@@ -97,6 +97,26 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
     #print(cruce[cruce['DISPOSITIVO'] == "22707"])
 
     cruce ['VERIFICACION'] = cruce['Dias_diferencia']==cruce['DIAS SIN MEDICION']
+    cruce ['CANTIDAD_PQRSD'] = cruce.groupby('DISPOSITIVO')['DISPOSITIVO'].transform('size')
+
+
+    # 1. Definimos las reglas de lo que está "Bien"
+    condiciones = [
+    # Regla 1: Menos de 5 días Y exactamente 0 registros
+    (cruce['DIAS SIN MEDICION'] < 5) & (cruce['CANTIDAD_PQRSD'] == 0),
+    
+    # Regla 2: Entre 5 y 8 días Y exactamente 1 registro
+    (cruce['DIAS SIN MEDICION'] >= 5) & (cruce['DIAS SIN MEDICION'] <= 8) & (cruce['CANTIDAD_PQRSD'] == 1),
+    
+    # Regla 3: Mayor a 8 días (Agrego esto por si acaso, asumiendo que debe tener 2 o más registros)
+    (cruce['DIAS SIN MEDICION'] > 8) & (cruce['CANTIDAD_PQRSD'] >= 2)
+    ]
+
+    # 2. Si se cumple alguna de las reglas de arriba, el resultado es 'Bien'
+    resultados = ['Bien', 'Bien', 'Bien']
+
+    # 3. Aplicamos la evaluación. Todo lo que no encaje en las reglas, por defecto será 'Mal'
+    cruce['VERIFICACION_PQRSD'] = np.select(condiciones, resultados, default='Mal')
     
     #cruce.to_csv('cruce.csv', index=False)
     return cruce
