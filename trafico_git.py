@@ -121,7 +121,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
 
     RESULTADO_INDOOR ['VERIFICACION'] = RESULTADO_INDOOR['Dias_diferencia']==RESULTADO_INDOOR['CONTADOR DEL DIA']
     RESULTADO_INDOOR = pd.concat([RESULTADO_INDOOR, ping_indoor_7_dias], ignore_index=True)
-    RESULTADO_INDOOR['CANTIDAD_PQRSD'] = cruce.groupby('Id_Beneficiario')['ID'].transform('count')
+    RESULTADO_INDOOR['CANTIDAD_PQRSD'] = RESULTADO_INDOOR.groupby('Id_Beneficiario')['ID'].transform('count')
 
     
     #RESULTADO_INDOOR.to_csv('cruce_trafico_indoor.csv', index=False)
@@ -142,7 +142,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
 
     RESULTADO_OUTDOOR ['VERIFICACION'] = RESULTADO_OUTDOOR['Dias_diferencia']==RESULTADO_OUTDOOR['CONTADOR DEL DIA']
     RESULTADO_OUTDOOR = pd.concat([RESULTADO_OUTDOOR, ping_outdoor_7_dias], ignore_index=True)
-    RESULTADO_OUTDOOR['CANTIDAD_PQRSD'] = cruce.groupby('Id_Beneficiario')['ID'].transform('count')
+    RESULTADO_OUTDOOR['CANTIDAD_PQRSD'] = RESULTADO_OUTDOOR.groupby('Id_Beneficiario')['ID'].transform('count')
 
     return (RESULTADO_OUTDOOR,RESULTADO_INDOOR)
 
