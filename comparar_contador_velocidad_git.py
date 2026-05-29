@@ -97,7 +97,7 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
     #print(cruce[cruce['DISPOSITIVO'] == "22707"])
 
     cruce ['VERIFICACION'] = cruce['Dias_diferencia']==cruce['DIAS SIN MEDICION']
-    cruce ['CANTIDAD_PQRSD'] = cruce.groupby('DISPOSITIVO')['DISPOSITIVO'].transform('size')
+    cruce['CANTIDAD_PQRSD'] = cruce.groupby('DISPOSITIVO')['ID'].transform('count')
 
 
     # 1. Definimos las reglas de lo que está "Bien"
