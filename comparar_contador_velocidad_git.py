@@ -38,6 +38,7 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
         'CD-FALLA EN EJECUCIÓN DE PRUEBA DE VELOCIDAD 5 DÍAS CALENDARIO'
      ])]
 
+    print (PQRSD_TRATADA_VELOCIDAD)
 
     cruce = pd.merge(
      left=CONTADORES_TRATADA,
@@ -57,8 +58,8 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
         how='left')
 
 
-    print(cruce[cruce['DISPOSITIVO'] == '23135'])
-    print(cruce[cruce['Identificador beneficiario'] == '23135'])
+#   print(cruce[cruce['DISPOSITIVO'] == '23135'])
+#   print(cruce[cruce['Identificador beneficiario'] == '23135'])
     #print(cruce[cruce['DISPOSITIVO'] == '22707'])
 
 
