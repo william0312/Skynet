@@ -203,7 +203,8 @@ def calcular_fecha_visita(row, festivos=None):
 
     return actual
 
-def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
+
+def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_Servicios,GEN_Sitios_Activos_SI,PR_Evento_Excepcional):
 
 columnas_GEN_Sitios_Activos_SI = [
     'Id_Beneficiario','DDA_Horas','Estado','Consolidado_Lunes','Consolidado_Martes','Consolidado_Miercoles','Consolidado_Jueves','Consolidado_Viernes','Consolidado_Sabado','Consolidado_Domingo'
