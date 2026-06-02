@@ -165,7 +165,7 @@ def calcular_fecha_visita(row, festivos=None):
         inicio_str = row.get(f"inicio_{dia_semana}", None)
         fin_str = row.get(f"fin_{dia_semana}", None)
 
-        print(f"[DEBUG] Día {dia_semana}: inicio={inicio_str}, fin={fin_str}, actual={actual}")
+        #print(f"[DEBUG] Día {dia_semana}: inicio={inicio_str}, fin={fin_str}, actual={actual}")
 
         if pd.isna(inicio_str) or pd.isna(fin_str):
             # No hay jornada → siguiente día
