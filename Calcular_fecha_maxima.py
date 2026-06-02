@@ -1,9 +1,10 @@
+# -*- coding: latin-1 -*-
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 #!pip install holidays
-#import holidays
-# -*- coding: latin-1 -*-
+import holidays
+
 
 '''
 path1 = '/content/PQRSD_Evento_Excepcional_Interventoria.xlsx'
