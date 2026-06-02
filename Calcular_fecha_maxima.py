@@ -1,6 +1,3 @@
-﻿#procedimientos para calcular tiempos fuera de horario y festivos
-
-
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
