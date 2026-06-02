@@ -204,6 +204,7 @@ def calcular_fecha_visita(row, festivos=None):
 
 def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_Servicios,GEN_Sitios_Activos_SI,PR_Evento_Excepcional):
 
+    '''
     columnas_GEN_Sitios_Activos_SI = [
         'Id_Beneficiario','DDA_Horas','Estado','Consolidado_Lunes','Consolidado_Martes','Consolidado_Miercoles','Consolidado_Jueves','Consolidado_Viernes','Consolidado_Sabado','Consolidado_Domingo'
     ]
@@ -244,7 +245,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
         'ID','Fecha_Creacion_Plantilla','id_beneficiario','dateparada','finishparada'
     ]
     PR_Evento_Excepcional = PR_Evento_Excepcional[columnas_PR_Evento_Excepcional]
-
+    '''
 
 
     PQRSD_Evento_Excepcional_Interventoria_tratada=PQRSD_Evento_Excepcional_Interventoria.copy()
