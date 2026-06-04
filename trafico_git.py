@@ -31,7 +31,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     PQRSD_TRATADA['Fecha_Creacion'] = pd.to_datetime(PQRSD_TRATADA['Fecha_Creacion'])
     PQRSD_TRATADA['ID_Beneficiario'] = PQRSD_TRATADA['ID_Beneficiario'].astype('int64')
 
-    SITIOS_TRATADA['Estado_Sitio'] = SITIOS_TRATADA['Estado_Sitio'].replace(';', '_')
+    SITIOS_TRATADA['Estado_Sitio'] = SITIOS_TRATADA['Estado_Sitio'].replace(';', '-')
 
     #print(CONTADORES_TRATADA_OUTDOOR[CONTADORES_TRATADA_OUTDOOR['IDENTIFICADOR BENEFICIARIO'] == 23039])
 
