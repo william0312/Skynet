@@ -390,7 +390,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     )
 
 
-    df_unido.to_excel('df_unido_revisado.xlsx', index=False)
+    #df_unido.to_excel('df_unido_revisado.xlsx', index=False)
 
 
 
@@ -442,7 +442,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     df_unido = df_continua_1_1.copy()
 
 
-    df_unido.to_excel('df_unido_revisado_segundo.xlsx', index=False)
+    #df_unido.to_excel('df_unido_revisado_segundo.xlsx', index=False)
 
 
     #ahora si valido la siguiente parada que tuvo un salto, genero indisponibilidad
@@ -486,7 +486,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
 
 
     df_unido=df_unido_2
-    df_unido_2.to_excel('df_unido_revisado_cuarto.xlsx', index=False)
+    #df_unido_2.to_excel('df_unido_revisado_cuarto.xlsx', index=False)
 
 
 
@@ -557,7 +557,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     )
 
 
-    df_unido.to_excel('df_unido_revisado.xlsx', index=False)
+    #df_unido.to_excel('df_unido_revisado.xlsx', index=False)
 
 
 
@@ -610,7 +610,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     df_unido = df_continua_1_2.copy()
 
 
-    df_unido.to_excel('df_unido_revisado_segundo.xlsx', index=False)
+    #df_unido.to_excel('df_unido_revisado_segundo.xlsx', index=False)
 
 
 
