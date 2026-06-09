@@ -50,6 +50,8 @@ print("¡Todos los archivos se cargaron correctamente!")
 
 '''
 
+#procedimientos para calcular tiempos fuera de horario y festivos
+
 def parse_hora(hora_str, fecha):
     """Convierte string de hora en datetime, acepta HH:MM y HH:MM:SS."""
     if pd.isna(hora_str):
@@ -67,11 +69,11 @@ def calcular_minutos_dentro(fila, col_inicio, col_fin, festivos=None):
 
 
      # Si la prioridad no es 1 → devolver diferencia en días
-    if "PRIORIDAD" in fila and fila["PRIORIDAD"] != 1:
-        if pd.notna(inicio_periodo) and pd.notna(fin_periodo):
-            return (fin_periodo - inicio_periodo).days
-        else:
-            return 0
+#    if "PRIORIDAD" in fila and fila["PRIORIDAD"] != 1:
+#        if pd.notna(inicio_periodo) and pd.notna(fin_periodo):
+#            return (fin_periodo - inicio_periodo).days
+#        else:
+#            return 0
 
 #    inicio_periodo = fila["fecha_maxima_generada"]
 #    fin_periodo = fila["fecha_comparacion"]
@@ -142,13 +144,13 @@ def calcular_fecha_visita(row, festivos=None):
     minutos_restantes = row["minutos_disponibles"]  # minutos que faltan
 
   # 🔹 Si la prioridad no es 1 → simplemente sumar días según minutos_disponibles
-    if "PRIORIDAD" in row and row["PRIORIDAD"] != 1:
-        return actual + timedelta(minutes=minutos_restantes)
+#    if "PRIORIDAD" in row and row["PRIORIDAD"] != 1:
+#        return actual + timedelta(minutes=minutos_restantes)
 
     while minutos_restantes > 0:
         # Saltar festivos
         if festivos and actual.date() in festivos:
-            #print(f"[DEBUG] Festivo {actual.date()} → se salta")
+            print(f"[DEBUG] Festivo {actual.date()} → se salta")
             actual = (actual + timedelta(days=1)).replace(hour=0, minute=0, second=0)
             continue
 
@@ -165,7 +167,7 @@ def calcular_fecha_visita(row, festivos=None):
         inicio_str = row.get(f"inicio_{dia_semana}", None)
         fin_str = row.get(f"fin_{dia_semana}", None)
 
-        #print(f"[DEBUG] Día {dia_semana}: inicio={inicio_str}, fin={fin_str}, actual={actual}")
+        print(f"[DEBUG] Día {dia_semana}: inicio={inicio_str}, fin={fin_str}, actual={actual}")
 
         if pd.isna(inicio_str) or pd.isna(fin_str):
             # No hay jornada → siguiente día
@@ -200,7 +202,6 @@ def calcular_fecha_visita(row, festivos=None):
             actual = (actual + timedelta(days=1)).replace(hour=0, minute=0, second=0)
 
     return actual
-
 
 def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_Servicios,GEN_Sitios_Activos_SI,PR_Evento_Excepcional):
 
@@ -263,6 +264,8 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     #
     #
     #
+
+    
     #unir dataframe
 
     pqrsd_unido= pd.merge(PQRSD_Formato_Servicios_tratada,GEN_Sitios_Activos_SI_tratada, left_on=['ID_Beneficiario'],right_on =['Id_Beneficiario'], how='left')
@@ -293,61 +296,31 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
         (pqrsd_unido_2["PRIORIDAD"] !=1) & (pqrsd_unido_2["DDA"] =="ALTO") ,
         (pqrsd_unido_2["PRIORIDAD"] !=1) & (pqrsd_unido_2["DDA"] =="MUY ALTO")
     ]
-
     # valores según condición
     valores = [pqrsd_unido_2["DDA_Horas"], 168,240,288,360]
-
     # columna nueva
     pqrsd_unido_2["DDA_Horas"] = np.select(condiciones_dda, valores, default=0)
 
 
+    condicion = pqrsd_unido_2["PRIORIDAD"] != 1
 
+    # 2. Agrupamos las columnas que vamos a "Actualizar"
+    cols_consolidados = ['Consolidado_Lunes', 'Consolidado_Martes', 'Consolidado_Miercoles', 'Consolidado_Jueves', 'Consolidado_Viernes']
+    cols_inicios = ['inicio_lunes', 'inicio_martes', 'inicio_miercoles', 'inicio_jueves', 'inicio_viernes']
+    cols_fines = ['fin_lunes', 'fin_martes', 'fin_miercoles', 'fin_jueves', 'fin_viernes']
 
+    # 3. Hacemos el "UPDATE" masivo
+    pqrsd_unido_2.loc[condicion, cols_consolidados] = "00:00:00 a 23:59:00"
+    pqrsd_unido_2.loc[condicion, cols_inicios] = "00:00:00"
+    pqrsd_unido_2.loc[condicion, cols_fines] = "23:59:00"
 
-    # condiciones
-    condiciones = [
-        (pqrsd_unido_2["fecha_creacion_agenda"].notna()) & (pqrsd_unido_2["dateparada"] <= pqrsd_unido_2["fecha_creacion_agenda"]),
-        (pqrsd_unido_2["fecha_creacion_agenda"].notna()) & (pqrsd_unido_2["dateparada"] > pqrsd_unido_2["fecha_creacion_agenda"])
-    ]
+    df_unido=pqrsd_unido_2
 
-    # valores según condición
-    valores = [1, 2]
-
-    # columna nueva
-    pqrsd_unido_2["bandera_inicio_parada"] = np.select(condiciones, valores, default=0)
-
-    # Ordenar por ID_x
-    pqrsd_unido_2 = pqrsd_unido_2.sort_values(by='ID_x')
-
-    # Crear columna de índice (1,2,3,...)
-    #pqrsd_unido_2['indice'] = range(1, len(pqrsd_unido_2) + 1)
-
-    #solo trabajo con el valor 1, y agrupo para dejar el finish parada mayor
-    # Filtrar solo bandera_inicio_parada = 1
-    valor1 = pqrsd_unido_2[pqrsd_unido_2['bandera_inicio_parada'] == 1]
-    # Obtener índice del máximo finishparada por cada ID_x
-    agrupado1 = valor1.groupby('ID_x')['finishparada'].idxmax()
-    # Usar esos índices para traer todas las columnas
-    resultadovalor1 = valor1.loc[agrupado1]
-    # columna nueva
-    resultadovalor1["fecha_maxima_generada"] = resultadovalor1 ["finishparada"]
-
-    valor2 = pqrsd_unido_2[pqrsd_unido_2['bandera_inicio_parada'] == 2]
-    #union entre valor 1 y 2
-    df_unido = pd.concat([valor2, resultadovalor1], ignore_index=True)
-    df_unido = df_unido.sort_values(by='ID_x')
-    df_unido['fecha_maxima_generada'] = pd.to_datetime(df_unido['fecha_maxima_generada'], errors='coerce')
-    df_unido['fecha_maxima_generada'] = df_unido.groupby('ID_x')['fecha_maxima_generada'].transform(lambda x: x.fillna(x.max()))
-
-    df_unido["dateparada"] = pd.to_datetime(df_unido["dateparada"])
-    df_unido["fecha_maxima_generada"] = pd.to_datetime(df_unido["fecha_maxima_generada"])
-    df_unido["fecha_maxima_generada"] = df_unido["fecha_maxima_generada"].fillna(df_unido["fecha_creacion_agenda"])
-
+    df_unido ["fecha_maxima_generada"]=df_unido["fecha_creacion_agenda"]
 
     #df_unido.to_excel('df_inicial.xlsx', index=False)
-    #    
-    #
-    #
+
+
 
     #re validacion para sacar todas las paradas que no tuvieron salto pero si alargan el tiempo ejm
     #parada 1  inicio 01-01-2025   finalizo 02-01-2025
@@ -411,18 +384,16 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     )
     #convierto valores negativos a 0
     df_unido["minutos_acomulados"] = df_unido["minutos_acomulados"].where(df_unido["minutos_acomulados"] >= 0, 0)
-
+    
     df_unido["fecha_comparacion"] = (
         (df_unido["fecha_maxima_generada"] + pd.to_timedelta(df_unido["minutos_acomulados"], unit="m"))
     )
 
-    #
-    #
-    #
-    ##festivos
-    #
-    ##
-    
+
+    df_unido.to_excel('df_unido_revisado.xlsx', index=False)
+
+
+
     # Festivos de Colombia
     # Pasando una lista de años
     festivos_col = holidays.Colombia(years=[2024, 2025, 2026])
@@ -435,19 +406,18 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     )
 
 
-    #
-    ##
-    #
     #para las bandera 2 dejo el valor minimo de minutos_fuera porque solo le realizo el calculo a la sigueitne banderaparada2
 
     # Filtrar solo los que tienen bandera = 2
     mask = df_unido["bandera_inicio_parada"] == 2
-    # Calcular el mínimo por ID_x
-    minimos = df_unido.loc[mask].groupby("ID_x")["minutos_fuera"].transform("min")
-    # Asignar el mínimo a todos los registros bandera=2
-    df_unido.loc[mask, "minutos_fuera"] = minimos
+    # 1. Creamos una vista temporal ordenada por ID y por fecha (de la más antigua a la más reciente)
+    # Esto garantiza que la primera fila de cada grupo ID_x sea obligatoriamente la del 'dateparada' mínimo
+    df_temporal_ordenado = df_unido[mask].sort_values(by=['ID_x', 'dateparada'])
 
-
+    # 2. Agrupamos y usamos transform('first')
+    # Pandas tomará la fecha y los minutos de esa primera fila y los copiará a todos los registros de su grupo
+    df_unido.loc[mask, "fecha_comparacion"] = df_temporal_ordenado.groupby("ID_x")["finishparada"].transform('first')
+    df_unido.loc[mask, "minutos_fuera"] = df_temporal_ordenado.groupby("ID_x")["minutos_fuera"].transform('first')
 
 
     #se revisa si se debe seguir revisando ese pqrsd
@@ -472,12 +442,11 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     df_unido = df_continua_1_1.copy()
 
 
+    df_unido.to_excel('df_unido_revisado_segundo.xlsx', index=False)
 
-    #
-    #
-    #
-    #
+
     #ahora si valido la siguiente parada que tuvo un salto, genero indisponibilidad
+
 
     #segundo archivo
     # condiciones
@@ -500,6 +469,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     valor2_1 = df_unido[df_unido['bandera_inicio_parada2'] == 1]
     # Obtener índice del máximo finishparada por cada ID_x
     agrupado2_1 = valor2_1.groupby('ID_x')['finishparada'].idxmax()
+    #agrupado2_1.to_excel('agrupado2_1.xlsx', index=False)
     # Usar esos índices para traer todas las columnas
     resultadovalor2_1 = valor2_1.loc[agrupado2_1]
     # columna nueva
@@ -514,96 +484,16 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     df_unido_2['fecha_maxima_generada2'] = pd.to_datetime(df_unido_2['fecha_maxima_generada2'], errors='coerce')
     df_unido_2['fecha_maxima_generada2'] = df_unido_2.groupby('ID_x')['fecha_maxima_generada2'].transform(lambda x: x.fillna(x.max()))
 
-    #
-    #
-    #dejo el minutos_fuera menor para iniciar el siguiente siclo de validacion
-    # Reemplazar por el mínimo dentro de cada grupo de ID_x
-    df_unido_2["minutos_fuera"] = df_unido_2.groupby("ID_x")["minutos_fuera"].transform("min")
 
+    df_unido=df_unido_2
+    df_unido_2.to_excel('df_unido_revisado_cuarto.xlsx', index=False)
 
-
-    #se revisa si se debe seguir revisando ese pqrsd
-    condiciones2 = [
-        (df_unido_2["minutos_fuera"] < (df_unido_2["DDA_Horas"]*60)),
-        (df_unido_2["minutos_fuera"] >= (df_unido_2["DDA_Horas"]*60))
-    ]
-    # valores según condición
-    valores2 = [1, 2]
-    # columna nueva
-    df_unido_2["continua"] = np.select(condiciones2, valores2, default=0)
-    
-    # DataFrame con los que tienen continua = 2
-    df_continua_2_2 = df_unido_2[df_unido_2["continua"] == 2].copy()
-    # DataFrame con los que tienen continua = 1
-    df_continua_1_2 = df_unido_2[df_unido_2["continua"] == 1].copy()
-    
-    df_continua_2_2["fecha_final"] = df_continua_2_2["fecha_comparacion"]
-    
-    #df_unido_2.to_excel('df_unido_2.xlsx', index=False)
-
-
-
-
-    #copio df_unido_2 a df_unido_3 para trabajar con un nuevo dataframe
-    df_unido_3 = df_continua_1_2.copy()
-
-    #
-    #
-    #
-    # condiciones en el segundo flujo
-    # 1. Asegurar formato de fecha ANTES de comparar
-    df_unido_3["dateparada"] = pd.to_datetime(df_unido_3["dateparada"], errors='coerce')
-    df_unido_3["fecha_maxima_generada2"] = pd.to_datetime(df_unido_3["fecha_maxima_generada2"], errors='coerce')
-
-    condiciones3 = [
-            (df_unido_3["fecha_maxima_generada2"].notna()) & (df_unido_3["dateparada"] <= df_unido_3["fecha_maxima_generada2"]),
-            (df_unido_3["fecha_maxima_generada2"].notna()) & (df_unido_3["dateparada"] > df_unido_3["fecha_maxima_generada2"])
-    ]
-    valores3 = [1, 2]
-
-    df_unido_3["bandera_inicio_parada3"] = np.select(condiciones3, valores3, default=0)
-
-    # Ordenar por ID_x
-    df_unido_3 = df_unido_3.sort_values(by='ID_x')
-
-    # Crear columna de índice (1,2,3,...)
-    #pqrsd_unido_2['indice'] = range(1, len(pqrsd_unido_2) + 1)
-
-    #solo trabajo con el valor 1, y agrupo para dejar el finish parada mayor
-    # Filtrar solo bandera_inicio_parada = 1
-    valor1 = df_unido_3[df_unido_3['bandera_inicio_parada3'] == 1]
-    # Obtener índice del máximo finishparada por cada ID_x
-    agrupado1 = valor1.groupby('ID_x')['finishparada'].idxmax()
-    # Usar esos índices para traer todas las columnas
-    resultadovalor1 = valor1.loc[agrupado1]
-    # columna nueva
-    resultadovalor1["fecha_maxima_generada3"] = resultadovalor1 ["finishparada"]
-
-    valor2 = df_unido_3[df_unido_3['bandera_inicio_parada3'] == 2]
-    #union entre valor 1 y 2
-    df_unido_3 = pd.concat([valor2, resultadovalor1], ignore_index=True)
-    df_unido_3 = df_unido_3.sort_values(by='ID_x')
-    df_unido_3['fecha_maxima_generada3'] = pd.to_datetime(df_unido_3['fecha_maxima_generada3'], errors='coerce')
-    df_unido_3['fecha_maxima_generada3'] = df_unido_3.groupby('ID_x')['fecha_maxima_generada3'].transform(lambda x: x.fillna(x.max()))
-
-    df_unido_3["dateparada"] = pd.to_datetime(df_unido_3["dateparada"])
-    df_unido_3["fecha_maxima_generada3"] = pd.to_datetime(df_unido_3["fecha_maxima_generada3"])
-    df_unido_3["fecha_maxima_generada3"] = df_unido_3["fecha_maxima_generada3"].fillna(df_unido_3["fecha_maxima_generada3"])
-
-
-    #df_unido_3.to_excel('df_unido_3.xlsx', index=False)
-
-    #
-    ##
-    #
-    #se inicia nuevamente para los sitios que tenian mas de un salto
 
 
     #re validacion para sacar todas las paradas que no tuvieron salto pero si alargan el tiempo ejm
     #parada 1  inicio 01-01-2025   finalizo 02-01-2025
     #parada 2 inicio 02-01-2025 finalizo 04-01-2025
     #realizo nuevamente la validacion por si al cambiar la fecha_maxima_generada entras paradas tipo 1
-
 
     cambio = True
     iteracion = 0
@@ -614,103 +504,129 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
         print(f"--- Iteración {iteracion} ---")
 
         # Asegurar formatos de fechas
-        df_unido_3["dateparada"] = pd.to_datetime(df_unido_3["dateparada"])
-        df_unido_3["finishparada"] = pd.to_datetime(df_unido_3["finishparada"])
-        df_unido_3["fecha_maxima_generada2"] = pd.to_datetime(df_unido_3["fecha_maxima_generada2"], errors="coerce")
+        df_unido["dateparada"] = pd.to_datetime(df_unido["dateparada"])
+        df_unido["finishparada"] = pd.to_datetime(df_unido["finishparada"])
+        df_unido["fecha_maxima_generada2"] = pd.to_datetime(df_unido["fecha_maxima_generada2"], errors="coerce")
 
         # Guardar estado anterior
-        df_prev2 = df_unido_3.copy()
+        df_prev = df_unido.copy()
 
         # condiciones
-        condiciones3 = [
-            (df_unido_3["fecha_maxima_generada2"].notna()) & (df_unido_3["dateparada"] <= df_unido_3["fecha_maxima_generada2"]),
-            (df_unido_3["fecha_maxima_generada2"].notna()) & (df_unido_3["dateparada"] > df_unido_3["fecha_maxima_generada2"])
+        condiciones = [
+            (df_unido["fecha_maxima_generada2"].notna()) & (df_unido["dateparada"] <= df_unido["fecha_maxima_generada2"]),
+            (df_unido["fecha_maxima_generada2"].notna()) & (df_unido["dateparada"] > df_unido["fecha_maxima_generada2"])
         ]
-        valores3 = [1, 2]
+        valores = [1, 2]
 
-        df_unido_3["bandera_inicio_parada3"] = np.select(condiciones3, valores3, default=0)
+        df_unido["bandera_inicio_parada3"] = np.select(condiciones, valores, default=0)
 
         # --- Proceso con valor 1
-        valor3_1 = df_unido_3[df_unido_3['bandera_inicio_parada3'] == 1]
-        agrupado3 = valor3_1.groupby('ID_x')['finishparada'].idxmax()
-        resultadovalor3 = valor3_1.loc[agrupado3].copy()
-        resultadovalor3["fecha_maxima_generada3"] = resultadovalor3["finishparada"]
-
-
+        valor1 = df_unido[df_unido['bandera_inicio_parada3'] == 1]
+        agrupado1 = valor1.groupby('ID_x')['finishparada'].idxmax()
+        resultadovalor1 = valor1.loc[agrupado1].copy()
+        resultadovalor1["fecha_maxima_generada2"] = resultadovalor1["finishparada"]
 
         # --- Proceso con valor 2
-        valor3_2 = df_unido_3[df_unido_3['bandera_inicio_parada3'] == 2]
+        valor2 = df_unido[df_unido['bandera_inicio_parada3'] == 2]
 
         # --- Unión
-        df_unido_3_2 = pd.concat([valor3_2, resultadovalor3], ignore_index=True)
-        df_unido_3_2 = df_unido_3_2.sort_values(by="ID_x")
-
-        #df_unido_3_2.to_excel('df_unido_3_2.xlsx', index=False)
-        #resultadovalor3.to_excel('resultadovalor3.xlsx', index=False)
-
+        df_unido = pd.concat([valor2, resultadovalor1], ignore_index=True)
+        df_unido = df_unido.sort_values(by="ID_x")
 
         # --- Asignar la fecha máxima final
-        df_unido_3_2["fecha_maxima_generada3"] = (
-            df_unido_3_2.groupby("ID_x")["fecha_maxima_generada3"].transform("max")
+        df_unido["fecha_maxima_generada2"] = (
+            df_unido.groupby("ID_x")["fecha_maxima_generada2"].transform("max")
         )
 
         # --- Verificar si hubo cambios
-        cambio = not df_unido_3_2[["ID_x", "fecha_maxima_generada3"]].equals(
-            df_prev2[["ID_x", "fecha_maxima_generada3"]]
+        cambio = not df_unido[["ID_x", "fecha_maxima_generada2"]].equals(
+            df_prev[["ID_x", "fecha_maxima_generada2"]]
         )
     print(f"Finalizó en {iteracion} iteraciones")
 
     #diferencia en minutos
-    df_unido_3_2["minutos_acomulados_2"] = (
-        (df_unido_3_2["dateparada"] - df_unido_3_2["fecha_maxima_generada3"])
+    df_unido["minutos_acomulados2"] = (
+        (df_unido["dateparada"] - df_unido["fecha_maxima_generada2"])
         .dt.total_seconds() / 60
     )
     #convierto valores negativos a 0
-    df_unido_3_2["minutos_acomulados_2"] = df_unido_3_2["minutos_acomulados_2"].where(df_unido_3_2["minutos_acomulados_2"] >= 0, 0)
+    df_unido["minutos_acomulados2"] = df_unido["minutos_acomulados2"].where(df_unido["minutos_acomulados2"] >= 0, 0)
 
-    df_unido_3_2["fecha_comparacion_2"] = (
-        (df_unido_3_2["fecha_maxima_generada3"] + pd.to_timedelta(df_unido_3_2["minutos_acomulados_2"], unit="m"))
+    df_unido["fecha_comparacion2"] = (
+        (df_unido["fecha_maxima_generada2"] + pd.to_timedelta(df_unido["minutos_acomulados2"], unit="m"))
     )
 
-    #
-    #
-    #
-    #se calculan los minutos dentro
 
-    df_unido_3_2["minutos_fuera2"] = df_unido_3_2.apply(
+    df_unido.to_excel('df_unido_revisado.xlsx', index=False)
+
+
+
+    # Festivos de Colombia
+    # Pasando una lista de años
+    festivos_col = holidays.Colombia(years=[2024, 2025, 2026])
+    df_unido["minutos_fuera2"] = df_unido.apply(
         calcular_minutos_dentro,
         axis=1,
-        col_inicio="fecha_maxima_generada3",
-        col_fin="fecha_comparacion_2",
+        col_inicio="fecha_maxima_generada2",
+        col_fin="fecha_comparacion2",
         festivos=festivos_col
     )
 
-    df_unido_3_2["minutos_fuera2"]=df_unido_3_2["minutos_fuera2"]+df_unido_3_2["minutos_fuera"]
 
-    #reviso si el dda le alcanza para la segunda validacion
+    #para las bandera 2 dejo el valor minimo de minutos_fuera porque solo le realizo el calculo a la sigueitne banderaparada2
 
-    #df_unido_3_2["fecha_comparacion_2"] = np.where(
-    #    (df_unido_3_2["DDA_Horas"]* 60 ) >= (df_unido_3_2["minutos_fuera"] + df_unido_3_2["minutos_fuera2"]),
-    #    df_unido_3_2["fecha_comparacion_2"],
-    #    df_unido_3_2["fecha_maxima_generada3"]
-    #)
 
-    df_unido_3_2.to_excel('df_unido_3_2.xlsx', index=False)
+    # Filtrar solo los que tienen bandera = 2
+    mask = df_unido["bandera_inicio_parada3"] == 2
+    # 1. Creamos una vista temporal ordenada por ID y por fecha (de la más antigua a la más reciente)
+    # Esto garantiza que la primera fila de cada grupo ID_x sea obligatoriamente la del 'dateparada' mínimo
+    df_temporal_ordenado = df_unido[mask].sort_values(by=['ID_x', 'dateparada'])
+
+    # 2. Agrupamos y usamos transform('first')
+    # Pandas tomará la fecha y los minutos de esa primera fila y los copiará a todos los registros de su grupo
+    df_unido.loc[mask, "fecha_comparacion2"] = df_temporal_ordenado.groupby("ID_x")["finishparada"].transform('first')
+    df_unido.loc[mask, "minutos_fuera2"] = df_temporal_ordenado.groupby("ID_x")["minutos_fuera2"].transform('first')
+
+
+    #se revisa si se debe seguir revisando ese pqrsd
+    condiciones2 = [
+        (df_unido["minutos_fuera2"] < (df_unido["DDA_Horas"]*60)),
+        (df_unido["minutos_fuera2"] >= (df_unido["DDA_Horas"]*60))
+    ]
+    # valores según condición
+    valores2 = [1, 2]
+    # columna nueva
+    df_unido["continua2"] = np.select(condiciones2, valores2, default=0)
+
+    # DataFrame con los que tienen continua = 2
+    df_continua_2_2 = df_unido[df_unido["continua2"] == 2].copy()
+    # DataFrame con los que tienen continua = 1
+    df_continua_1_2 = df_unido[df_unido["continua2"] == 1].copy()
+
+    df_continua_2_2["fecha_final"] = df_continua_2_2["fecha_maxima_generada2"]
+
+    #df_unido.to_excel('df_unido.xlsx', index=False)
+
+    df_unido = df_continua_1_2.copy()
+
+
+    df_unido.to_excel('df_unido_revisado_segundo.xlsx', index=False)
+
 
 
     #ahora muestro todo incluyendo los que ya se habian descartado por vencimiento ans
     #se realizaron 2 descartes
 
-    df_unido_3_2 = df_unido_3_2.rename(columns={"fecha_maxima_generada3": "fecha_final"})
-    df_unido_3_2["fecha_final"] = pd.to_datetime(df_unido_3_2["fecha_final"].astype(str).str[:16],
+    df_unido_final = df_unido.rename(columns={"fecha_maxima_generada2": "fecha_final"})
+    df_unido_final["fecha_final"] = pd.to_datetime(df_unido_final["fecha_final"].astype(str).str[:16],
                                               format="%Y-%m-%d %H:%M")
 
 
-    df_final = pd.concat([df_unido_3_2, df_continua_2_2, df_continua_2_1], ignore_index=True)
+    df_final = pd.concat([df_unido_final, df_continua_2_2, df_continua_2_1], ignore_index=True)
 
-    df_final["minutos_fuera2"] = df_final["minutos_fuera2"].fillna(0)
+    df_final["minutos_fuera3"] = df_final["minutos_fuera2"].fillna(0) + df_final["minutos_fuera"].fillna(0)
 
-    df_final["minutos_disponibles"] = (df_final["DDA_Horas"] * 60) - df_final["minutos_fuera2"]
+    df_final["minutos_disponibles"] = (df_final["DDA_Horas"] * 60) - df_final["minutos_fuera3"]
     #df_final["minutos_disponibles"] = np.where(
     #    df_final["PRIORIDAD"] == 1,
     #    (df_final["DDA_Horas"] * 60) - df_final["minutos_fuera2"],
@@ -719,39 +635,21 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
 
     df_final["minutos_disponibles"] = df_final["minutos_disponibles"].where(df_final["minutos_disponibles"] >= 0, 0)
 
-    #
-    #
-    #
-    #
-    #
+
+
 
     #calculo la fecha maxima de atencion
 
     df_final = df_final.copy()
            # SLA en horas
-
-    # Convertir todo a string primero, luego a datetime
-    #df_final["fecha_final"] = pd.to_datetime(df_final["fecha_final"].astype(str), errors="coerce", dayfirst=True)
-    #df_final["fecha_final"] = df_final["fecha_final"].fillna(pd.Timestamp.today())
     df_final["DDA_Minutos"] = (df_final["DDA_Horas"]*60)
-
-
-
-    #df_test = df_final.iloc[:20].copy()
-    #df_test['fecha_visita'] = df_test.apply(lambda row: calcular_fecha_visita(row, festivos_col), axis=1)
-
-
     df_final['fecha_visita'] = df_final.apply(lambda row: calcular_fecha_visita(row, festivos_col), axis=1)
 
 
-    #
-    #
-    #
     columnas_df_final = [
         'bandera_inicio_parada3','ID_x','TICKETCCC','ID_Beneficiario','DEPARTAMENTO','CIUDAD','GRUPO','DDA','CATEGORIA','SUBCATEGORIA','PRIORIDAD','descripcion_creacion','Fecha_Creacion','Estado_x','fecha_creacion_agenda','fecha_maxima_atencion','Nueva_fecha_maxima_atencion','DDA_Horas','ID_y','Inicio_Parada_Reloj','Fin_Parada_Reloj','fecha_final','minutos_disponibles','bandera_inicio_parada3','fecha_visita'
         ]
     # Subconjuntos con columnas relevantes
     df_final = df_final[columnas_df_final]
-    return (df_final)
-    #df_final.to_excel('df_final.xlsx', index=False)
 
+    df_final.to_excel('df_final.xlsx', index=False)
