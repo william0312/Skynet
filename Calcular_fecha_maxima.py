@@ -150,7 +150,7 @@ def calcular_fecha_visita(row, festivos=None):
     while minutos_restantes > 0:
         # Saltar festivos
         if festivos and actual.date() in festivos:
-            print(f"[DEBUG] Festivo {actual.date()} → se salta")
+#            print(f"[DEBUG] Festivo {actual.date()} → se salta")
             actual = (actual + timedelta(days=1)).replace(hour=0, minute=0, second=0)
             continue
 
@@ -167,7 +167,7 @@ def calcular_fecha_visita(row, festivos=None):
         inicio_str = row.get(f"inicio_{dia_semana}", None)
         fin_str = row.get(f"fin_{dia_semana}", None)
 
-        print(f"[DEBUG] Día {dia_semana}: inicio={inicio_str}, fin={fin_str}, actual={actual}")
+ #       print(f"[DEBUG] Día {dia_semana}: inicio={inicio_str}, fin={fin_str}, actual={actual}")
 
         if pd.isna(inicio_str) or pd.isna(fin_str):
             # No hay jornada → siguiente día
@@ -652,4 +652,5 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     # Subconjuntos con columnas relevantes
     df_final = df_final[columnas_df_final]
 
-    df_final.to_excel('df_final.xlsx', index=False)
+    #df_final.to_excel('df_final.xlsx', index=False)
+    return (df_final)
