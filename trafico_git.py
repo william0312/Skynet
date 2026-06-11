@@ -71,7 +71,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     )
     
 
-    print(PQRSD_TRATADA_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 22679])
+    #print(PQRSD_TRATADA_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 22679])
     RESULTADO_INDOOR = pd.merge(
         left=RESULTADO_INDOOR,
         right=SITIOS_TRATADA,
@@ -110,7 +110,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     )
 
     print ("tercera revision")
-    print(RESULTADO_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 22679])
+    print(RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ID_Beneficiario'] == 22679])
 
     es_ping_mayor_7 = RESULTADO_INDOOR['ULTIMO PING ONLINE'].astype(str).str.contains('mas de 7', case=False, na=False)
     ping_indoor_7_dias = RESULTADO_INDOOR[es_ping_mayor_7].copy()
