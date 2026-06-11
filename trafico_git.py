@@ -32,8 +32,8 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     PQRSD_TRATADA['ID_Beneficiario'] = PQRSD_TRATADA['ID_Beneficiario'].astype('int64')
 
     SITIOS_TRATADA['Estado_Sitio'] = SITIOS_TRATADA['Estado_Sitio'].replace(';', '-').str.replace(';', '-')
-
-    print(CONTADORES_TRATADA_OUTDOOR[CONTADORES_TRATADA_OUTDOOR['IDENTIFICADOR BENEFICIARIO'] == 22676])
+    print ("primera revision")
+    print(CONTADORES_TRATADA_OUTDOOR[CONTADORES_TRATADA_OUTDOOR['IDENTIFICADOR BENEFICIARIO'] == 22679])
 
     #tratamiento ping
 
@@ -57,7 +57,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         'CD-SIN TRAFICO DE INTERNET 24 HORAS AP EXTERIOR',
         'CD-FALLA SIN TRAFICO DE INTERNET 24 HORAS AP EXTERIOR'
         ])]
-
+    print ("segunda revision")
     print(PQRSD_TRATADA_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 22679])
 
     #primera revision online y contador mayor a 0
@@ -109,6 +109,8 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         how='outer'         # Especifica que es un INNER JOIN
     )
 
+    print ("tercera revision")
+    print(RESULTADO_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 22679])
 
     es_ping_mayor_7 = RESULTADO_INDOOR['ULTIMO PING ONLINE'].astype(str).str.contains('mas de 7', case=False, na=False)
     ping_indoor_7_dias = RESULTADO_INDOOR[es_ping_mayor_7].copy()
