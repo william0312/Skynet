@@ -33,7 +33,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
 
     SITIOS_TRATADA['Estado_Sitio'] = SITIOS_TRATADA['Estado_Sitio'].replace(';', '-').str.replace(';', '-')
 
-    #print(CONTADORES_TRATADA_OUTDOOR[CONTADORES_TRATADA_OUTDOOR['IDENTIFICADOR BENEFICIARIO'] == 23039])
+    print(CONTADORES_TRATADA_OUTDOOR[CONTADORES_TRATADA_OUTDOOR['IDENTIFICADOR BENEFICIARIO'] == 22676])
 
     #tratamiento ping
 
@@ -58,7 +58,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         'CD-FALLA SIN TRAFICO DE INTERNET 24 HORAS AP EXTERIOR'
         ])]
 
-    #print(PQRSD_TRATADA_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 37848])
+    print(PQRSD_TRATADA_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 22679])
 
     #primera revision online y contador mayor a 0
     # Realizar el INNER JOIN
@@ -69,6 +69,9 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         right_on='IDENTIFICADOR BENEFICIARIO',
         how='outer'         # Especifica que es un INNER JOIN
     )
+    
+
+    print(PQRSD_TRATADA_OUTDOOR[PQRSD_TRATADA_OUTDOOR['ID_Beneficiario'] == 22679])
     RESULTADO_INDOOR = pd.merge(
         left=RESULTADO_INDOOR,
         right=SITIOS_TRATADA,
