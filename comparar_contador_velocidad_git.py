@@ -54,7 +54,7 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
      right=SITIOS_TRATADA,
      left_on='DISPOSITIVO',
      right_on='Id_Beneficiario',
-     how='left'         # Especifica que es un INNER JOIN
+     how='right'         # Especifica que es un INNER JOIN
     )
 
 
