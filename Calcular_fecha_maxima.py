@@ -652,8 +652,8 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     # Subconjuntos con columnas relevantes
     df_final = df_final[columnas_df_final]
 
-    df_unido_final = df_unido.rename(columns={"ID_x": "ID_PQRSD"})
-    df_unido_final = df_unido.rename(columns={"Estado_x": "ESTADO_PQRSD"})
+    df_final = df_final.rename(columns={"ID_x": "ID_PQRSD"})
+    df_final = df_final.rename(columns={"Estado_x": "ESTADO_PQRSD"})
  
 
     #df_final.to_excel('df_final.xlsx', index=False)
