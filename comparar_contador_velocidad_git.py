@@ -11,10 +11,10 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
 
     VELOCIDAD_TRATADA['Fecha de ejecucion'] = pd.to_datetime(VELOCIDAD_TRATADA['Fecha de ejecucion'])
 
-    #print(VELOCIDAD_TRATADA[VELOCIDAD_TRATADA['Identificador beneficiario'] == '23135'])
+    print(VELOCIDAD_TRATADA[VELOCIDAD_TRATADA['Identificador beneficiario'] == '12004'])
 
     VELOCIDAD_TRATADA = VELOCIDAD_TRATADA.groupby('Identificador beneficiario')['Fecha de ejecucion'].max().reset_index()
-
+    print(VELOCIDAD_TRATADA[VELOCIDAD_TRATADA['Identificador beneficiario'] == '12004'])
     # Crea una nueva columna con la cantidad de días de diferencia
     VELOCIDAD_TRATADA['Dias_diferencia'] = (
      (pd.Timestamp('today') - pd.Timedelta(days=1)).normalize() - VELOCIDAD_TRATADA['Fecha de ejecucion'].dt.normalize()
