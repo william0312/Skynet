@@ -280,10 +280,17 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     print("Paso 3:", pqrsd_unido_2.shape[0])
 
     pqrsd_unido_2 = pqrsd_unido_2.dropna(subset=['fecha_creacion_agenda'])
-    df_sin_finishparada = pqrsd_unido_2[pqrsd_unido_2['finishparada'].isna()].copy()
-    df_sin_finishparada = df_sin_finishparada.drop_duplicates(subset=['UUID_PQRSD'])
+
+    # 1. Definimos la condición lógica para el respaldo
+    condicion_respaldo = (pqrsd_unido_2['finishparada'].isna()) | (pqrsd_unido_2['finishparada'] < pqrsd_unido_2['fecha_creacion_agenda'])
+    # 2. Filtramos pqrsd_unido_2 para crear el nuevo DataFrame estructurado (agregando los corchetes)
+    df_sin_finishparada = pqrsd_unido_2[condicion_respaldo].copy()
     pqrsd_unido_2 = pqrsd_unido_2[pqrsd_unido_2['finishparada'] >= pqrsd_unido_2['fecha_creacion_agenda']]
+    df_sin_finishparada = df_sin_finishparada[~df_sin_finishparada['UUID_PQRSD'].isin(pqrsd_unido_2['UUID_PQRSD'])]
+    # 5. Ahora sí, eliminamos los duplicados basados en 'UUID_PQRSD'
+    df_sin_finishparada = df_sin_finishparada.drop_duplicates(subset=['UUID_PQRSD'])    
     
+    print (df_sin_finishparada)
     print("Paso 3.1:", pqrsd_unido_2.shape[0])
     #pqrsd_unido_2.to_excel('df_cruce_inicial.xlsx', index=False)
 
@@ -664,4 +671,4 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
  
 
     #df_final.to_excel('df_final.xlsx', index=False)
-    return (df_final)    return (df_final)
+    return (df_final)
