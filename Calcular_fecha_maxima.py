@@ -649,7 +649,9 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     df_final['fecha_visita'] = df_final.apply(lambda row: calcular_fecha_visita(row, festivos_col), axis=1)
 
     df_final = pd.concat([df_final, df_sin_finishparada], ignore_index=True)
-    
+#    print("\n--- COLUMNAS DISPONIBLES EN DF_FINAL ANTES DEL FILSTRO ---")
+#    print(df_final.columns.tolist())
+#    print("---------------------------------------------------------\n")
 
     columnas_df_final = [
         'bandera_inicio_parada3','ID_x','TICKETCCC','ID_Beneficiario','DEPARTAMENTO','CIUDAD','GRUPO','DDA','CATEGORIA','SUBCATEGORIA','PRIORIDAD','descripcion_creacion','Fecha_Creacion','Estado_x','Fecha_Cierre_PQRS','fecha_creacion_agenda','fecha_maxima_atencion','Nueva_fecha_maxima_atencion','DDA_Horas','Inicio_Parada_Reloj','Fin_Parada_Reloj','fecha_final','minutos_disponibles','bandera_inicio_parada3','fecha_visita'
@@ -662,4 +664,4 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
  
 
     #df_final.to_excel('df_final.xlsx', index=False)
-    return (df_final)
+    return (df_final)    return (df_final)
