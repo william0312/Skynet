@@ -280,7 +280,10 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     print("Paso 3:", pqrsd_unido_2.shape[0])
 
     pqrsd_unido_2 = pqrsd_unido_2.dropna(subset=['fecha_creacion_agenda'])
+    df_sin_finishparada = pqrsd_unido_2[pqrsd_unido_2['finishparada'].isna()].copy()
+    df_sin_finishparada = df_sin_finishparada.drop_duplicates(subset=['UUID_PQRSD'])
     pqrsd_unido_2 = pqrsd_unido_2[pqrsd_unido_2['finishparada'] >= pqrsd_unido_2['fecha_creacion_agenda']]
+    
     print("Paso 3.1:", pqrsd_unido_2.shape[0])
     #pqrsd_unido_2.to_excel('df_cruce_inicial.xlsx', index=False)
 
@@ -645,6 +648,8 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     df_final["DDA_Minutos"] = (df_final["DDA_Horas"]*60)
     df_final['fecha_visita'] = df_final.apply(lambda row: calcular_fecha_visita(row, festivos_col), axis=1)
 
+    df_final = pd.concat([df_final, df_sin_finishparada], ignore_index=True)
+    
 
     columnas_df_final = [
         'bandera_inicio_parada3','ID_x','TICKETCCC','ID_Beneficiario','DEPARTAMENTO','CIUDAD','GRUPO','DDA','CATEGORIA','SUBCATEGORIA','PRIORIDAD','descripcion_creacion','Fecha_Creacion','Estado_x','Fecha_Cierre_PQRS','fecha_creacion_agenda','fecha_maxima_atencion','Nueva_fecha_maxima_atencion','DDA_Horas','Inicio_Parada_Reloj','Fin_Parada_Reloj','fecha_final','minutos_disponibles','bandera_inicio_parada3','fecha_visita'
