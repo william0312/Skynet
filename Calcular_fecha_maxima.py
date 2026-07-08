@@ -265,7 +265,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     #
     #
 
-    
+
     #unir dataframe
 
     pqrsd_unido= pd.merge(PQRSD_Formato_Servicios_tratada,GEN_Sitios_Activos_SI_tratada, left_on=['ID_Beneficiario'],right_on =['Id_Beneficiario'], how='left')
@@ -281,16 +281,19 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
 
     pqrsd_unido_2 = pqrsd_unido_2.dropna(subset=['fecha_creacion_agenda'])
 
-    # 1. Definimos la condición lógica para el respaldo
-    condicion_respaldo = (pqrsd_unido_2['finishparada'].isna()) | (pqrsd_unido_2['finishparada'] < pqrsd_unido_2['fecha_creacion_agenda'])
-    # 2. Filtramos pqrsd_unido_2 para crear el nuevo DataFrame estructurado (agregando los corchetes)
-    df_sin_finishparada = pqrsd_unido_2[condicion_respaldo].copy()
     pqrsd_unido_2 = pqrsd_unido_2[pqrsd_unido_2['finishparada'] >= pqrsd_unido_2['fecha_creacion_agenda']]
-    df_sin_finishparada = df_sin_finishparada[~df_sin_finishparada['UUID_PQRSD'].isin(pqrsd_unido_2['UUID_PQRSD'])]
+    df_sin_finishparada = PQRSD_Formato_Servicios_tratada[~PQRSD_Formato_Servicios_tratada['ID'].isin(pqrsd_unido_2['ID_x'])]
     # 5. Ahora sí, eliminamos los duplicados basados en 'UUID_PQRSD'
-    df_sin_finishparada = df_sin_finishparada.drop_duplicates(subset=['UUID_PQRSD'])    
+    df_sin_finishparada = df_sin_finishparada.drop_duplicates(subset=['ID'])
+
+
     
-    print (df_sin_finishparada)
+
+    #df_sin_finishparada.to_excel('df_sin_finishparada1.xlsx', index=False)
+    
+
+    print("sinfinishparada:", df_sin_finishparada.shape[0])
+
     print("Paso 3.1:", pqrsd_unido_2.shape[0])
     #pqrsd_unido_2.to_excel('df_cruce_inicial.xlsx', index=False)
 
@@ -394,7 +397,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     )
     #convierto valores negativos a 0
     df_unido["minutos_acomulados"] = df_unido["minutos_acomulados"].where(df_unido["minutos_acomulados"] >= 0, 0)
-    
+
     df_unido["fecha_comparacion"] = (
         (df_unido["fecha_maxima_generada"] + pd.to_timedelta(df_unido["minutos_acomulados"], unit="m"))
     )
@@ -655,20 +658,26 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     df_final["DDA_Minutos"] = (df_final["DDA_Horas"]*60)
     df_final['fecha_visita'] = df_final.apply(lambda row: calcular_fecha_visita(row, festivos_col), axis=1)
 
+    df_sin_finishparada = df_sin_finishparada.rename(columns={"ID": "ID_x"})
+    df_sin_finishparada = df_sin_finishparada.rename(columns={"Estado": "Estado_x"})
+    df_sin_finishparada = df_sin_finishparada.rename(columns={"ID_PQRSD": "PQRS"})
+
+    #df_sin_finishparada.to_excel('df_sin_finishparada_2.xlsx', index=False)
+
     df_final = pd.concat([df_final, df_sin_finishparada], ignore_index=True)
 #    print("\n--- COLUMNAS DISPONIBLES EN DF_FINAL ANTES DEL FILSTRO ---")
 #    print(df_final.columns.tolist())
 #    print("---------------------------------------------------------\n")
 
     columnas_df_final = [
-        'bandera_inicio_parada3','ID_x','TICKETCCC','ID_Beneficiario','DEPARTAMENTO','CIUDAD','GRUPO','DDA','CATEGORIA','SUBCATEGORIA','PRIORIDAD','descripcion_creacion','Fecha_Creacion','Estado_x','Fecha_Cierre_PQRS','fecha_creacion_agenda','fecha_maxima_atencion','Nueva_fecha_maxima_atencion','DDA_Horas','Inicio_Parada_Reloj','Fin_Parada_Reloj','fecha_final','minutos_disponibles','bandera_inicio_parada3','fecha_visita'
+        'bandera_inicio_parada3','ID_x','TICKETCCC','ID_Beneficiario','DEPARTAMENTO','CIUDAD','GRUPO','DDA','CATEGORIA','SUBCATEGORIA','PRIORIDAD','descripcion_creacion','Fecha_Creacion','Estado_x','Fecha_Cierre_PQRS','fecha_creacion_agenda','fecha_maxima_atencion','Nueva_fecha_maxima_atencion','DDA_Horas','Inicio_Parada_Reloj','Fin_Parada_Reloj','fecha_final','minutos_disponibles','bandera_inicio_parada3','fecha_visita','PQRS'
         ]
     # Subconjuntos con columnas relevantes
     df_final = df_final[columnas_df_final]
 
     df_final = df_final.rename(columns={"ID_x": "ID_PQRSD"})
     df_final = df_final.rename(columns={"Estado_x": "ESTADO_PQRSD"})
- 
+    df_final = df_final.rename(columns={"PQRS": "UUID_PQRSD"})
 
     #df_final.to_excel('df_final.xlsx', index=False)
     return (df_final)
