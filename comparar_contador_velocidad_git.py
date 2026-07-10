@@ -8,7 +8,6 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
     VELOCIDAD_TRATADA=VELOCIDAD.copy()
     SITIOS_TRATADA=SITIOS.copy()
     PQRSD_TRATADA=PQRSD.copy()
-    DISPOSITIVOS_TRATADA=DISPOSITIVOS.copy()
 
     VELOCIDAD_TRATADA['Fecha de ejecucion'] = pd.to_datetime(VELOCIDAD_TRATADA['Fecha de ejecucion'])
 
@@ -41,7 +40,6 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
         'CD-FALLA EN EJECUCION DE PRUEBA DE VELOCIDAD 5 DIAS CALENDARIO'
      ])]
 
-    DISPOSITIVOS_TRATADA = DISPOSITIVOS_TRATADA[DISPOSITIVOS_TRATADA['TIPO']=='indoor']
 
 
 #    print (PQRSD_TRATADA_VELOCIDAD)
@@ -61,12 +59,6 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
         right_on='Identificador beneficiario',
         how='left')
 
-    cruce = pd.merge(
-        cruce,
-        DISPOSITIVO,
-        left_on='Id_Beneficiario',
-        right_on='ID BENEFICIARIO',
-        how='left')
 
     print(cruce.columns)
 
