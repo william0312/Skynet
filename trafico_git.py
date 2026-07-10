@@ -2,12 +2,13 @@
 import pandas as pd
 import numpy as np
 
-def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
+def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD,DISPOSITIVOS):
     print("Iniciando procesamiento seguro desde repositorio privado...")
     CONTADORES_TRATADA=CONTADORES.copy()
     TRAFICO_TRATADA=TRAFICO.copy()
     SITIOS_TRATADA=SITIOS.copy()
     PQRSD_TRATADA=PQRSD.copy()
+    DISPOSITIVOS_TRATADA=DISPOSITIVOS.copy()
 
     #tratamiento contadores
 
@@ -35,6 +36,13 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     print ("primera revision")
     print(CONTADORES_TRATADA_OUTDOOR[CONTADORES_TRATADA_OUTDOOR['IDENTIFICADOR BENEFICIARIO'] == 22679])
 
+    #TRATAMIENTO DISPOSITIVOS
+
+    DISPOSITIVOS_TRATADA_INDOOR = DISPOSITIVOS_TRATADA[DISPOSITIVOS_TRATADA['TIPO']=='indoor']
+    DISPOSITIVOS_TRATADA_OUTDOOR = DISPOSITIVOS_TRATADA[DISPOSITIVOS_TRATADA['TIPO']=='indoor']
+
+
+    
     #tratamiento ping
 
 
@@ -86,6 +94,16 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         right_on='ID_Beneficiario',
         how='outer'         # Especifica que es un INNER JOIN
     )
+    
+    RESULTADO_INDOOR = pd.merge(
+        left=RESULTADO_INDOOR,
+        right=DISPOSITIVOS_TRATADA_INDOOR,
+        left_on='ID BENEFICIARIO',
+        right_on='ID BENEFICIARIO',
+        how='left'         # Especifica que es un INNER JOIN
+    )
+
+    
 
     RESULTADO_OUTDOOR = pd.merge(
         left=TRAFICO_TRATADA_OUTDOOR,
@@ -109,6 +127,15 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
         how='outer'         # Especifica que es un INNER JOIN
     )
 
+    RESULTADO_OUTDOOR = pd.merge(
+        left=RESULTADO_OUTDOOR,
+        right=DISPOSITIVOS_TRATADA_OUTDOOR,
+        left_on='ID BENEFICIARIO',
+        right_on='ID BENEFICIARIO',
+        how='left'         # Especifica que es un INNER JOIN
+    )
+
+
     print ("tercera revision")
     print(RESULTADO_OUTDOOR[RESULTADO_OUTDOOR['ID_Beneficiario'] == 22679])
 
@@ -128,9 +155,28 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     RESULTADO_INDOOR = pd.concat([RESULTADO_INDOOR, ping_indoor_7_dias], ignore_index=True)
     RESULTADO_INDOOR['CANTIDAD_PQRSD'] = RESULTADO_INDOOR.groupby('Id_Beneficiario')['ID'].transform('count')
 
+    # 1. Definimos las reglas de lo que está "Bien"
+    condiciones_INDOOR = [
+    # Regla 1: Menos de 1 días Y exactamente 0 registros
+    (RESULTADO_INDOOR['CONTADOR DEL DIA'] < 1) & (RESULTADO_INDOOR['CANTIDAD_PQRSD'] == 0),
+    
+    # Regla 2: Entre 1 y 7 días Y exactamente 1 registro
+    (RESULTADO_INDOOR['CONTADOR DEL DIA'] >= 1) & (RESULTADO_INDOOR['CONTADOR DEL DIA'] < 8) & (RESULTADO_INDOOR['CANTIDAD_PQRSD'] == 1),
+    
+    # Regla 3: Mayor a 8 días (Agrego esto por si acaso, asumiendo que debe tener 2 o más registros)
+    (RESULTADO_INDOOR['CONTADOR DEL DIA'] >= 8) & (RESULTADO_INDOOR['CANTIDAD_PQRSD'] == 2)
+    ]
+
+    # 2. Si se cumple alguna de las reglas de arriba, el resultado es 'Bien'
+    resultados_INDOOR = ['Bien', 'Bien', 'Bien']
+
+    # 3. Aplicamos la evaluación. Todo lo que no encaje en las reglas, por defecto será 'Mal'
+    RESULTADO_INDOOR['VERIFICACION_PQRSD'] = np.select(condiciones_INDOOR, resultados_INDOOR, default='Mal')
+    RESULTADO_INDOOR ['VERIFICACION_MAC'] = RESULTADO_INDOOR['MAC_x']==RESULTADO_INDOOR['MAC_Y']
+
     
     #RESULTADO_INDOOR.to_csv('cruce_trafico_indoor.csv', index=False)
-
+    
     es_ping_mayor_7 = RESULTADO_OUTDOOR['ULTIMO PING ONLINE'].astype(str).str.contains('mas de 7', case=False, na=False)
     ping_outdoor_7_dias = RESULTADO_OUTDOOR[es_ping_mayor_7].copy()
     RESULTADO_OUTDOOR = RESULTADO_OUTDOOR[~es_ping_mayor_7].copy()
@@ -148,6 +194,27 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD):
     RESULTADO_OUTDOOR ['VERIFICACION'] = RESULTADO_OUTDOOR['Dias_diferencia']==RESULTADO_OUTDOOR['CONTADOR DEL DIA']
     RESULTADO_OUTDOOR = pd.concat([RESULTADO_OUTDOOR, ping_outdoor_7_dias], ignore_index=True)
     RESULTADO_OUTDOOR['CANTIDAD_PQRSD'] = RESULTADO_OUTDOOR.groupby('Id_Beneficiario')['ID'].transform('count')
+
+
+     # 1. Definimos las reglas de lo que está "Bien"
+    condiciones_OUTDOOR = [
+    # Regla 1: Menos de 1 días Y exactamente 0 registros
+    (RESULTADO_OUTDOOR['CONTADOR DEL DIA'] < 1) & (RESULTADO_OUTDOOR['CANTIDAD_PQRSD'] == 0),
+    
+    # Regla 2: Entre 1 y 7 días Y exactamente 1 registro
+    (RESULTADO_OUTDOOR['CONTADOR DEL DIA'] >= 1) & (RESULTADO_OUTDOOR['CONTADOR DEL DIA'] < 8) & (RESULTADO_OUTDOOR['CANTIDAD_PQRSD'] == 1),
+    
+    # Regla 3: Mayor a 8 días (Agrego esto por si acaso, asumiendo que debe tener 2 o más registros)
+    (RESULTADO_OUTDOOR['CONTADOR DEL DIA'] >= 8) & (RESULTADO_OUTDOOR['CANTIDAD_PQRSD'] == 2)
+    ]
+
+    # 2. Si se cumple alguna de las reglas de arriba, el resultado es 'Bien'
+    resultados_OUTDOOR = ['Bien', 'Bien', 'Bien']
+
+    # 3. Aplicamos la evaluación. Todo lo que no encaje en las reglas, por defecto será 'Mal'
+    RESULTADO_OUTDOOR['VERIFICACION_PQRSD'] = np.select(condiciones_OUTDOOR, resultados_OUTDOOR, default='Mal')
+    RESULTADO_OUTDOOR ['VERIFICACION_MAC'] = RESULTADO_OUTDOOR['MAC_x']==RESULTADO_OUTDOOR['MAC_y']
+    
 
     return (RESULTADO_OUTDOOR,RESULTADO_INDOOR)
 
