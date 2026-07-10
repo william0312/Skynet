@@ -172,7 +172,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD,DISPOSITIVOS):
 
     # 3. Aplicamos la evaluación. Todo lo que no encaje en las reglas, por defecto será 'Mal'
     RESULTADO_INDOOR['VERIFICACION_PQRSD'] = np.select(condiciones_INDOOR, resultados_INDOOR, default='Mal')
-    RESULTADO_INDOOR ['VERIFICACION_MAC'] = RESULTADO_INDOOR['MAC_x']==RESULTADO_INDOOR['MAC_Y']
+    RESULTADO_INDOOR ['VERIFICACION_MAC'] = RESULTADO_INDOOR['MAC_x']==RESULTADO_INDOOR['MAC_y']
 
     
     #RESULTADO_INDOOR.to_csv('cruce_trafico_indoor.csv', index=False)
