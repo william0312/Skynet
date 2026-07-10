@@ -8,13 +8,14 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
     VELOCIDAD_TRATADA=VELOCIDAD.copy()
     SITIOS_TRATADA=SITIOS.copy()
     PQRSD_TRATADA=PQRSD.copy()
+    DISPOSITIVOS_TRATADA=DISPOSITIVOS.copy()
 
     VELOCIDAD_TRATADA['Fecha de ejecucion'] = pd.to_datetime(VELOCIDAD_TRATADA['Fecha de ejecucion'])
 
-    print(VELOCIDAD_TRATADA[VELOCIDAD_TRATADA['Identificador beneficiario'] == '12004'])
+#    print(VELOCIDAD_TRATADA[VELOCIDAD_TRATADA['Identificador beneficiario'] == '12004'])
 
     VELOCIDAD_TRATADA = VELOCIDAD_TRATADA.groupby('Identificador beneficiario')['Fecha de ejecucion'].max().reset_index()
-    print(VELOCIDAD_TRATADA[VELOCIDAD_TRATADA['Identificador beneficiario'] == '12004'])
+#    print(VELOCIDAD_TRATADA[VELOCIDAD_TRATADA['Identificador beneficiario'] == '12004'])
     # Crea una nueva columna con la cantidad de días de diferencia
     VELOCIDAD_TRATADA['Dias_diferencia'] = (
      (pd.Timestamp('today') - pd.Timedelta(days=1)).normalize() - VELOCIDAD_TRATADA['Fecha de ejecucion'].dt.normalize()
@@ -33,21 +34,17 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
     PQRSD_TRATADA['ID_Beneficiario'] = PQRSD_TRATADA['ID_Beneficiario'].astype('str')
 
     PQRSD_TRATADA = PQRSD_TRATADA[PQRSD_TRATADA['Estado']!='Cerrar']
-    print (PQRSD_TRATADA)
+#    print (PQRSD_TRATADA)
 
     PQRSD_TRATADA_VELOCIDAD = PQRSD_TRATADA[PQRSD_TRATADA['SUBCATEGORIA'].isin([
         'CD-MEDICION DIRECTA DE VELOCIDAD EFECTIVA DE TRANSMISION DE DATOS',
         'CD-FALLA EN EJECUCION DE PRUEBA DE VELOCIDAD 5 DIAS CALENDARIO'
      ])]
-    #condicion = (
-    #PQRSD_TRATADA['SUBCATEGORIA'].str.contains('DIRECTA DE VELOCIDAD EFECTIVA', na=False) |
-    #PQRSD_TRATADA['SUBCATEGORIA'].str.contains('PRUEBA DE VELOCIDAD 5', na=False)
-    #)
 
-    # Aplicamos el filtro
-    #PQRSD_TRATADA_VELOCIDAD = PQRSD_TRATADA[condicion].copy()
+    DISPOSITIVOS_TRATADA = DISPOSITIVOS_TRATADA[DISPOSITIVOS_TRATADA['TIPO']=='indoor']
 
-    print (PQRSD_TRATADA_VELOCIDAD)
+
+#    print (PQRSD_TRATADA_VELOCIDAD)
 
     cruce = pd.merge(
      left=CONTADORES_TRATADA,
@@ -57,8 +54,6 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
      how='right'         # Especifica que es un INNER JOIN
     )
 
-
-
     cruce = pd.merge(
         cruce,
         VELOCIDAD_TRATADA,
@@ -66,6 +61,14 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
         right_on='Identificador beneficiario',
         how='left')
 
+    cruce = pd.merge(
+        cruce,
+        DISPOSITIVO,
+        left_on='Id_Beneficiario',
+        right_on='ID BENEFICIARIO',
+        how='left')
+
+    print(cruce.columns)
 
 #   print(cruce[cruce['DISPOSITIVO'] == '23135'])
 #   print(cruce[cruce['Identificador beneficiario'] == '23135'])
@@ -76,9 +79,6 @@ def ejecutar_cruce_seguro(CONTADORES, VELOCIDAD,SITIOS,PQRSD):
 
     # 1. Convertimos la columna a texto
     PQRSD_TRATADA_VELOCIDAD['ID_Beneficiario'] = PQRSD_TRATADA_VELOCIDAD['ID_Beneficiario'].astype(str)
-    # 2. Reemplazamos la palabra "nan" (y sus variantes) por verdaderos nulos
-    #PQRSD_TRATADA_VELOCIDAD['ID_Beneficiario'] = PQRSD_TRATADA_VELOCIDAD['ID_Beneficiario'].replace(['nan', '<NA>', 'None', 'nan.0'], np.nan)
-
     # 1. Convertimos la columna a texto
     cruce['DISPOSITIVO'] = cruce['DISPOSITIVO'].astype(str)
     # 2. Reemplazamos la palabra "nan" (y sus variantes) por verdaderos nulos
