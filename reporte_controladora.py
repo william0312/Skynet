@@ -99,5 +99,5 @@ def ejecutar_cruce_seguro():
     df.to_csv(f"Dispositivos controladora {fecha_archivo}.csv", index=False)
 
     print("Archivo exportado correctamente.")
-    return()
+    return(fecha_archivo)
     
