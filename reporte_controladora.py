@@ -4,8 +4,6 @@ import numpy as np
 
 
 def ejecutar_cruce_seguro():
-
-    # URL del endpoint
     url = "https://jacs.ruijienetworks.com/api/users/login?version=2"
 
     # Datos a enviar en formato JSON
