@@ -1,7 +1,9 @@
 # -*- coding: latin-1 -*-
 import pandas as pd
 import numpy as np
-
+import requests
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 def ejecutar_cruce_seguro():
     url = "https://jacs.ruijienetworks.com/api/users/login?version=2"
