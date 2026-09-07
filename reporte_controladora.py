@@ -10,8 +10,8 @@ def ejecutar_cruce_seguro():
 
     # Datos a enviar en formato JSON
     payload = {
-        "account": "centrosdigitales@sky.net.co",
-        "password": "Skynet2023*"
+        "account": "williammora0925@gmail.com",
+        "password": "skynet2030*"
     }
 
     # Hacemos la petición POST
