@@ -79,7 +79,7 @@ def ejecutar_cruce_seguro():
     else:
         print("Error:", response.status_code, response.text)
 
-    df = pd.DataFrame(data)
+    df = pd.DataFrame([data])
 
     # Exportar a un archivo .json
     df.to_json(f'Dispositivos controladora {fecha_archivo}.json', orient='records', lines=True, force_ascii=False)
