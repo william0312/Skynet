@@ -1884,7 +1884,6 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD,DISPOSITIVOS):
     else:
        matricula3_resultado_p95_bajada_10='NO CUMPLE'
     
-#voy acaaaaaaa
 
     matricula3_rango11 = matricula3[(matricula3['Rango'] == 11)]
     #subida 0.05
@@ -1987,7 +1986,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD,DISPOSITIVOS):
        matricula3_resultado_p95_subida_13='NO CUMPLE'
     
     #bajada 0.05
-    #voyyyyyy acaaaaaaaaaaa
+
     matricula3_posicion_prueba_p5_bajada_13 = math.ceil(num_filas_13*0.05)
     matricula3_rango13=matricula3_rango13.sort_values(by='Velocidad de bajada [Kbps]')
     fila_bajada_p5_13 = matricula3_rango13.iloc[matricula3_posicion_prueba_p5_bajada_13-1]
@@ -2504,7 +2503,7 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD,DISPOSITIVOS):
     else:
        matricula4_resultado_p95_bajada_10='NO CUMPLE'
     
-    #voyyyyyyyyyyyy acaaaaaaaaaaaaaaaa
+
 
     matricula4_rango11 = matricula4[(matricula4['Rango'] == 11)]
 
