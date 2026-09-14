@@ -14,7 +14,7 @@ from openpyxl.styles import Font
 
 def ejecutar_cruce_seguro(sitios_activos,velocidad):
 
-    dataframe_1 = velocidad.copy()
+    dataframe = velocidad.copy()
     dataframe2 = sitios_activos.copy()
     matricula1_velocidad_bajada_mostrar = 26.40
     matricula1_velocidad_bajada = 26400
