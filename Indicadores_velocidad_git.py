@@ -945,8 +945,6 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD,DISPOSITIVOS):
 
 
     matricula2_rango7 = matricula2[(matricula2['Rango'] == 7)]
-
-
     #subida 0.05
     num_filas_7 = (len(matricula2_rango7))
     matricula2_posicion_prueba_p5_subida_7 = math.ceil(num_filas_7*0.05)
@@ -997,928 +995,901 @@ def ejecutar_cruce_seguro(CONTADORES,TRAFICO,SITIOS,PQRSD,DISPOSITIVOS):
         else:
            matricula2_resultado_p95_bajada_7='NO CUMPLE'
     
-######################voy aca
+    matricula2_rango8 = matricula2[(matricula2['Rango'] == 8)]
 
-matricula2_rango8 = matricula2[(matricula2['Rango'] == 8)]
+    #subida 0.05
+    num_filas_8 = (len(matricula2_rango8))
+    matricula2_posicion_prueba_p5_subida_8 = math.ceil(num_filas_8*0.05)
 
-
-#subida 0.05
-num_filas_8 = (len(matricula2_rango8))
-matricula2_posicion_prueba_p5_subida_8 = math.ceil(num_filas_8*0.05)
-
-matricula2_prueba_p5_subida_8 = 0 # Initialize
-matricula2_resultado_p5_subida_8 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_8 = math.ceil(num_filas_8*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_8 = 0 # Initialize
-matricula2_resultado_p95_subida_8 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_8 = math.ceil(num_filas_8*0.05)
-matricula2_prueba_p5_bajada_8 = 0 # Initialize
-matricula2_resultado_p5_bajada_8 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_8 = math.ceil(num_filas_8*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_8 = 0 # Initialize
-matricula2_resultado_p95_bajada_8 = 'NO APLICA' # Initialize
-
-if num_filas_8 > 0:
-    matricula2_rango8=matricula2_rango8.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p5_subida_8-1]
-    matricula2_prueba_p5_subida_8 = fila_subida_p5_8['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_8 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_8='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_8='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p95_subida_8-1]
-    matricula2_prueba_p95_subida_8 = fila_subida_p95_8['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_8 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_8='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_8='NO CUMPLE'
+    matricula2_prueba_p5_subida_8 = 0 # Initialize
+    matricula2_resultado_p5_subida_8 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_8 = math.ceil(num_filas_8*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_8 = 0 # Initialize
+    matricula2_resultado_p95_subida_8 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango8=matricula2_rango8.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p5_bajada_8-1]
-    matricula2_prueba_p5_bajada_8 = fila_bajada_p5_8['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_8 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_8='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_8='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p95_bajada_8-1]
-    matricula2_prueba_p95_bajada_8 = fila_bajada_p95_8['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_8 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_8='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_8='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_8 = math.ceil(num_filas_8*0.05)
+    matricula2_prueba_p5_bajada_8 = 0 # Initialize
+    matricula2_resultado_p5_bajada_8 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_8 = math.ceil(num_filas_8*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_8 = 0 # Initialize
+    matricula2_resultado_p95_bajada_8 = 'NO APLICA' # Initialize
+
+    if num_filas_8 > 0:
+        matricula2_rango8=matricula2_rango8.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p5_subida_8-1]
+        matricula2_prueba_p5_subida_8 = fila_subida_p5_8['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_8 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_8='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_8='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p95_subida_8-1]
+        matricula2_prueba_p95_subida_8 = fila_subida_p95_8['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_8 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_8='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_8='NO CUMPLE'
+
+        #bajada 0.05
+        matricula2_rango8=matricula2_rango8.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p5_bajada_8-1]
+        matricula2_prueba_p5_bajada_8 = fila_bajada_p5_8['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_8 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_8='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_8='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_8 = matricula2_rango8.iloc[matricula2_posicion_prueba_p95_bajada_8-1]
+        matricula2_prueba_p95_bajada_8 = fila_bajada_p95_8['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_8 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_8='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_8='NO CUMPLE'
 
 
 
-matricula2_rango9 = matricula2[(matricula2['Rango'] == 9)]
+    matricula2_rango9 = matricula2[(matricula2['Rango'] == 9)]
+    #subida 0.05
+    num_filas_9 = (len(matricula2_rango9))
+    matricula2_posicion_prueba_p5_subida_9 = math.ceil(num_filas_9*0.05)
+    
+    matricula2_prueba_p5_subida_9 = 0 # Initialize
+    matricula2_resultado_p5_subida_9 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_9 = math.ceil(num_filas_9*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_9 = 0 # Initialize
+    matricula2_resultado_p95_subida_9 = 'NO APLICA' # Initialize
+    
+    #bajada 0.05
+    matricula2_posicion_prueba_p5_bajada_9 = math.ceil(num_filas_9*0.05)
+    matricula2_prueba_p5_bajada_9 = 0 # Initialize
+    matricula2_resultado_p5_bajada_9 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_9 = math.ceil(num_filas_9*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_9 = 0 # Initialize
+    matricula2_resultado_p95_bajada_9 = 'NO APLICA' # Initialize
 
+    if num_filas_9 > 0:
+        matricula2_rango9=matricula2_rango9.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p5_subida_9-1]
+        matricula2_prueba_p5_subida_9 = fila_subida_p5_9['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_9 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_9='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_9='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p95_subida_9-1]
+        matricula2_prueba_p95_subida_9 = fila_subida_p95_9['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_9 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_9='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_9='NO CUMPLE'
 
-#subida 0.05
-num_filas_9 = (len(matricula2_rango9))
-matricula2_posicion_prueba_p5_subida_9 = math.ceil(num_filas_9*0.05)
+        #bajada 0.05
+        matricula2_rango9=matricula2_rango9.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p5_bajada_9-1]
+        matricula2_prueba_p5_bajada_9 = fila_bajada_p5_9['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_9 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_9='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_9='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p95_bajada_9-1]
+        matricula2_prueba_p95_bajada_9 = fila_bajada_p95_9['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_9 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_9='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_9='NO CUMPLE'
+    
+    matricula2_rango10 = matricula2[(matricula2['Rango'] == 10)]
+    #subida 0.05
+    num_filas_10 = (len(matricula2_rango10))
+    matricula2_posicion_prueba_p5_subida_10 = math.ceil(num_filas_10*0.05)
 
-matricula2_prueba_p5_subida_9 = 0 # Initialize
-matricula2_resultado_p5_subida_9 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_9 = math.ceil(num_filas_9*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_9 = 0 # Initialize
-matricula2_resultado_p95_subida_9 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_9 = math.ceil(num_filas_9*0.05)
-matricula2_prueba_p5_bajada_9 = 0 # Initialize
-matricula2_resultado_p5_bajada_9 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_9 = math.ceil(num_filas_9*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_9 = 0 # Initialize
-matricula2_resultado_p95_bajada_9 = 'NO APLICA' # Initialize
-
-if num_filas_9 > 0:
-    matricula2_rango9=matricula2_rango9.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p5_subida_9-1]
-    matricula2_prueba_p5_subida_9 = fila_subida_p5_9['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_9 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_9='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_9='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p95_subida_9-1]
-    matricula2_prueba_p95_subida_9 = fila_subida_p95_9['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_9 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_9='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_9='NO CUMPLE'
+    matricula2_prueba_p5_subida_10 = 0 # Initialize
+    matricula2_resultado_p5_subida_10 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_10 = math.ceil(num_filas_10*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_10 = 0 # Initialize
+    matricula2_resultado_p95_subida_10 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango9=matricula2_rango9.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p5_bajada_9-1]
-    matricula2_prueba_p5_bajada_9 = fila_bajada_p5_9['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_9 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_9='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_9='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_9 = matricula2_rango9.iloc[matricula2_posicion_prueba_p95_bajada_9-1]
-    matricula2_prueba_p95_bajada_9 = fila_bajada_p95_9['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_9 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_9='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_9='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_10 = math.ceil(num_filas_10*0.05)
+    matricula2_prueba_p5_bajada_10 = 0 # Initialize
+    matricula2_resultado_p5_bajada_10 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_10 = math.ceil(num_filas_10*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_10 = 0 # Initialize
+    matricula2_resultado_p95_bajada_10 = 'NO APLICA' # Initialize
 
+    if num_filas_10 > 0:
+        matricula2_rango10=matricula2_rango10.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p5_subida_10-1]
+        matricula2_prueba_p5_subida_10 = fila_subida_p5_10['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_10 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_10='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_10='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p95_subida_10-1]
+        matricula2_prueba_p95_subida_10 = fila_subida_p95_10['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_10 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_10='CUMPLE'
+        else:
+           matricula2_resultado_p105_subida_10='NO CUMPLE'
+    
+        #bajada 0.05
+        matricula2_rango10=matricula2_rango10.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p5_bajada_10-1]
+        matricula2_prueba_p5_bajada_10 = fila_bajada_p5_10['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_10 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_10='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_10='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p95_bajada_10-1]
+        matricula2_prueba_p95_bajada_10 = fila_bajada_p95_10['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_10 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_10='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_10='NO CUMPLE'
+    
+    matricula2_rango11 = matricula2[(matricula2['Rango'] == 11)]
 
+    #subida 0.05
+    num_filas_11 = (len(matricula2_rango11))
+    matricula2_posicion_prueba_p5_subida_11 = math.ceil(num_filas_11*0.05)
 
-matricula2_rango10 = matricula2[(matricula2['Rango'] == 10)]
-
-
-#subida 0.05
-num_filas_10 = (len(matricula2_rango10))
-matricula2_posicion_prueba_p5_subida_10 = math.ceil(num_filas_10*0.05)
-
-matricula2_prueba_p5_subida_10 = 0 # Initialize
-matricula2_resultado_p5_subida_10 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_10 = math.ceil(num_filas_10*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_10 = 0 # Initialize
-matricula2_resultado_p95_subida_10 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_10 = math.ceil(num_filas_10*0.05)
-matricula2_prueba_p5_bajada_10 = 0 # Initialize
-matricula2_resultado_p5_bajada_10 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_10 = math.ceil(num_filas_10*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_10 = 0 # Initialize
-matricula2_resultado_p95_bajada_10 = 'NO APLICA' # Initialize
-
-if num_filas_10 > 0:
-    matricula2_rango10=matricula2_rango10.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p5_subida_10-1]
-    matricula2_prueba_p5_subida_10 = fila_subida_p5_10['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_10 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_10='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_10='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p95_subida_10-1]
-    matricula2_prueba_p95_subida_10 = fila_subida_p95_10['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_10 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_10='CUMPLE'
-    else:
-       matricula2_resultado_p105_subida_10='NO CUMPLE'
+    matricula2_prueba_p5_subida_11 = 0 # Initialize
+    matricula2_resultado_p5_subida_11 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_11 = math.ceil(num_filas_11*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_11 = 0 # Initialize
+    matricula2_resultado_p95_subida_11 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango10=matricula2_rango10.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p5_bajada_10-1]
-    matricula2_prueba_p5_bajada_10 = fila_bajada_p5_10['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_10 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_10='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_10='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_10 = matricula2_rango10.iloc[matricula2_posicion_prueba_p95_bajada_10-1]
-    matricula2_prueba_p95_bajada_10 = fila_bajada_p95_10['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_10 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_10='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_10='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_11 = math.ceil(num_filas_11*0.05)
+    matricula2_prueba_p5_bajada_11 = 0 # Initialize
+    matricula2_resultado_p5_bajada_11 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_11 = math.ceil(num_filas_11*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_11 = 0 # Initialize
+    matricula2_resultado_p95_bajada_11 = 'NO APLICA' # Initialize
+
+    if num_filas_11 > 0:
+        matricula2_rango11=matricula2_rango11.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p5_subida_11-1]
+        matricula2_prueba_p5_subida_11 = fila_subida_p5_11['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_11 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_11='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_11='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p95_subida_11-1]
+        matricula2_prueba_p95_subida_11 = fila_subida_p95_11['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_11 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_11='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_11='NO CUMPLE'
+
+        #bajada 0.05
+        matricula2_rango11=matricula2_rango11.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p5_bajada_11-1]
+        matricula2_prueba_p5_bajada_11 = fila_bajada_p5_11['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_11 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_11='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_11='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p95_bajada_11-1]
+        matricula2_prueba_p95_bajada_11 = fila_bajada_p95_11['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_11 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_11='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_11='NO CUMPLE'
 
 
+    matricula2_rango12 = matricula2[(matricula2['Rango'] == 12)]
+    #subida 0.05
+    num_filas_12 = (len(matricula2_rango12))
+    matricula2_posicion_prueba_p5_subida_12 = math.ceil(num_filas_12*0.05)
 
-matricula2_rango11 = matricula2[(matricula2['Rango'] == 11)]
-
-
-#subida 0.05
-num_filas_11 = (len(matricula2_rango11))
-matricula2_posicion_prueba_p5_subida_11 = math.ceil(num_filas_11*0.05)
-
-matricula2_prueba_p5_subida_11 = 0 # Initialize
-matricula2_resultado_p5_subida_11 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_11 = math.ceil(num_filas_11*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_11 = 0 # Initialize
-matricula2_resultado_p95_subida_11 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_11 = math.ceil(num_filas_11*0.05)
-matricula2_prueba_p5_bajada_11 = 0 # Initialize
-matricula2_resultado_p5_bajada_11 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_11 = math.ceil(num_filas_11*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_11 = 0 # Initialize
-matricula2_resultado_p95_bajada_11 = 'NO APLICA' # Initialize
-
-if num_filas_11 > 0:
-    matricula2_rango11=matricula2_rango11.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p5_subida_11-1]
-    matricula2_prueba_p5_subida_11 = fila_subida_p5_11['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_11 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_11='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_11='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p95_subida_11-1]
-    matricula2_prueba_p95_subida_11 = fila_subida_p95_11['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_11 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_11='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_11='NO CUMPLE'
+    matricula2_prueba_p5_subida_12 = 0 # Initialize
+    matricula2_resultado_p5_subida_12 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_12 = math.ceil(num_filas_12*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_12 = 0 # Initialize
+    matricula2_resultado_p95_subida_12 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango11=matricula2_rango11.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p5_bajada_11-1]
-    matricula2_prueba_p5_bajada_11 = fila_bajada_p5_11['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_11 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_11='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_11='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_11 = matricula2_rango11.iloc[matricula2_posicion_prueba_p95_bajada_11-1]
-    matricula2_prueba_p95_bajada_11 = fila_bajada_p95_11['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_11 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_11='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_11='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_12 = math.ceil(num_filas_12*0.05)
+    matricula2_prueba_p5_bajada_12 = 0 # Initialize
+    matricula2_resultado_p5_bajada_12 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_12 = math.ceil(num_filas_12*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_12 = 0 # Initialize
+    matricula2_resultado_p95_bajada_12 = 'NO APLICA' # Initialize
+    
+    if num_filas_12 > 0:
+        matricula2_rango12=matricula2_rango12.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p5_subida_12-1]
+        matricula2_prueba_p5_subida_12 = fila_subida_p5_12['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_12 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_12='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_12='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p95_subida_12-1]
+        matricula2_prueba_p95_subida_12 = fila_subida_p95_12['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_12 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_12='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_12='NO CUMPLE'
+
+        #bajada 0.05
+        matricula2_rango12=matricula2_rango12.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p5_bajada_12-1]
+        matricula2_prueba_p5_bajada_12 = fila_bajada_p5_12['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_12 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_12='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_12='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p95_bajada_12-1]
+        matricula2_prueba_p95_bajada_12 = fila_bajada_p95_12['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_12 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_12='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_12='NO CUMPLE'
 
 
 
-matricula2_rango12 = matricula2[(matricula2['Rango'] == 12)]
+    matricula2_rango13 = matricula2[(matricula2['Rango'] == 13)]
 
-#subida 0.05
-num_filas_12 = (len(matricula2_rango12))
-matricula2_posicion_prueba_p5_subida_12 = math.ceil(num_filas_12*0.05)
+    #subida 0.05
+    num_filas_13 = (len(matricula2_rango13))
+    matricula2_posicion_prueba_p5_subida_13 = math.ceil(num_filas_13*0.05)
 
-matricula2_prueba_p5_subida_12 = 0 # Initialize
-matricula2_resultado_p5_subida_12 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_12 = math.ceil(num_filas_12*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_12 = 0 # Initialize
-matricula2_resultado_p95_subida_12 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_12 = math.ceil(num_filas_12*0.05)
-matricula2_prueba_p5_bajada_12 = 0 # Initialize
-matricula2_resultado_p5_bajada_12 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_12 = math.ceil(num_filas_12*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_12 = 0 # Initialize
-matricula2_resultado_p95_bajada_12 = 'NO APLICA' # Initialize
-
-if num_filas_12 > 0:
-    matricula2_rango12=matricula2_rango12.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p5_subida_12-1]
-    matricula2_prueba_p5_subida_12 = fila_subida_p5_12['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_12 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_12='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_12='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p95_subida_12-1]
-    matricula2_prueba_p95_subida_12 = fila_subida_p95_12['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_12 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_12='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_12='NO CUMPLE'
-
-    #bajada 0.05
-    matricula2_rango12=matricula2_rango12.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p5_bajada_12-1]
-    matricula2_prueba_p5_bajada_12 = fila_bajada_p5_12['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_12 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_12='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_12='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_12 = matricula2_rango12.iloc[matricula2_posicion_prueba_p95_bajada_12-1]
-    matricula2_prueba_p95_bajada_12 = fila_bajada_p95_12['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_12 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_12='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_12='NO CUMPLE'
-
-
-
-matricula2_rango13 = matricula2[(matricula2['Rango'] == 13)]
-
-#subida 0.05
-num_filas_13 = (len(matricula2_rango13))
-matricula2_posicion_prueba_p5_subida_13 = math.ceil(num_filas_13*0.05)
-
-matricula2_prueba_p5_subida_13 = 0 # Initialize
-matricula2_resultado_p5_subida_13 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_13 = math.ceil(num_filas_13*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_13 = 0 # Initialize
-matricula2_resultado_p95_subida_13 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_13 = math.ceil(num_filas_13*0.05)
-matricula2_prueba_p5_bajada_13 = 0 # Initialize
-matricula2_resultado_p5_bajada_13 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_13 = math.ceil(num_filas_13*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_13 = 0 # Initialize
-matricula2_resultado_p95_bajada_13 = 'NO APLICA' # Initialize
-
-if num_filas_13 > 0:
-    matricula2_rango13=matricula2_rango13.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p5_subida_13-1]
-    matricula2_prueba_p5_subida_13 = fila_subida_p5_13['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_13 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_13='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_13='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p95_subida_13-1]
-    matricula2_prueba_p95_subida_13 = fila_subida_p95_13['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_13 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_13='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_13='NO CUMPLE'
+    matricula2_prueba_p5_subida_13 = 0 # Initialize
+    matricula2_resultado_p5_subida_13 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_13 = math.ceil(num_filas_13*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_13 = 0 # Initialize
+    matricula2_resultado_p95_subida_13 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango13=matricula2_rango13.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p5_bajada_13-1]
-    matricula2_prueba_p5_bajada_13 = fila_bajada_p5_13['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_13 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_13='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_13='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p95_bajada_13-1]
-    matricula2_prueba_p95_bajada_13 = fila_bajada_p95_13['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_13 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_13='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_13='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_13 = math.ceil(num_filas_13*0.05)
+    matricula2_prueba_p5_bajada_13 = 0 # Initialize
+    matricula2_resultado_p5_bajada_13 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_13 = math.ceil(num_filas_13*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_13 = 0 # Initialize
+    matricula2_resultado_p95_bajada_13 = 'NO APLICA' # Initialize
+
+    if num_filas_13 > 0:
+        matricula2_rango13=matricula2_rango13.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p5_subida_13-1]
+        matricula2_prueba_p5_subida_13 = fila_subida_p5_13['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_13 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_13='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_13='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p95_subida_13-1]
+        matricula2_prueba_p95_subida_13 = fila_subida_p95_13['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_13 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_13='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_13='NO CUMPLE'
+
+        #bajada 0.05
+        matricula2_rango13=matricula2_rango13.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p5_bajada_13-1]
+        matricula2_prueba_p5_bajada_13 = fila_bajada_p5_13['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_13 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_13='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_13='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_13 = matricula2_rango13.iloc[matricula2_posicion_prueba_p95_bajada_13-1]
+        matricula2_prueba_p95_bajada_13 = fila_bajada_p95_13['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_13 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_13='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_13='NO CUMPLE'
 
 
 
-matricula2_rango14 = matricula2[(matricula2['Rango'] == 14)]
+    matricula2_rango14 = matricula2[(matricula2['Rango'] == 14)]
 
-#subida 0.05
-num_filas_14 = (len(matricula2_rango14))
-matricula2_posicion_prueba_p5_subida_14 = math.ceil(num_filas_14*0.05)
+    #subida 0.05
+    num_filas_14 = (len(matricula2_rango14))
+    matricula2_posicion_prueba_p5_subida_14 = math.ceil(num_filas_14*0.05)
 
-matricula2_prueba_p5_subida_14 = 0 # Initialize
-matricula2_resultado_p5_subida_14 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_14 = math.ceil(num_filas_14*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_14 = 0 # Initialize
-matricula2_resultado_p95_subida_14 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_14 = math.ceil(num_filas_14*0.05)
-matricula2_prueba_p5_bajada_14 = 0 # Initialize
-matricula2_resultado_p5_bajada_14 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_14 = math.ceil(num_filas_14*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_14 = 0 # Initialize
-matricula2_resultado_p95_bajada_14 = 'NO APLICA' # Initialize
-
-if num_filas_14 > 0:
-    matricula2_rango14=matricula2_rango14.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p5_subida_14-1]
-    matricula2_prueba_p5_subida_14 = fila_subida_p5_14['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_14 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_14='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_14='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p95_subida_14-1]
-    matricula2_prueba_p95_subida_14 = fila_subida_p95_14['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_14 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_14='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_14='NO CUMPLE'
-
-    #bajada 0.05
-    matricula2_rango14=matricula2_rango14.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p5_bajada_14-1]
-    matricula2_prueba_p5_bajada_14 = fila_bajada_p5_14['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_14 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_14='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_14='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p95_bajada_14-1]
-    matricula2_prueba_p95_bajada_14 = fila_bajada_p95_14['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_14 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_14='CUMPLE'
-    else:
-       matricula2_resultado_p145_bajada_14='NO CUMPLE'
-
-
-
-
-matricula2_rango15 = matricula2[(matricula2['Rango'] == 15)]
-
-#subida 0.05
-num_filas_15 = (len(matricula2_rango15))
-matricula2_posicion_prueba_p5_subida_15 = math.ceil(num_filas_15*0.05)
-
-matricula2_prueba_p5_subida_15 = 0 # Initialize
-matricula2_resultado_p5_subida_15 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_15 = math.ceil(num_filas_15*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_15 = 0 # Initialize
-matricula2_resultado_p95_subida_15 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_15 = math.ceil(num_filas_15*0.05)
-matricula2_prueba_p5_bajada_15 = 0 # Initialize
-matricula2_resultado_p5_bajada_15 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_15 = math.ceil(num_filas_15*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_15 = 0 # Initialize
-matricula2_resultado_p95_bajada_15 = 'NO APLICA' # Initialize
-
-if num_filas_15 > 0:
-    matricula2_rango15=matricula2_rango15.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p5_subida_15-1]
-    matricula2_prueba_p5_subida_15 = fila_subida_p5_15['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_15 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_15='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_15='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p95_subida_15-1]
-    matricula2_prueba_p95_subida_15 = fila_subida_p95_15['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_15 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_15='CUMPLE'
-    else:
-       matricula2_resultado_p155_subida_15='NO CUMPLE'
+    matricula2_prueba_p5_subida_14 = 0 # Initialize
+    matricula2_resultado_p5_subida_14 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_14 = math.ceil(num_filas_14*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_14 = 0 # Initialize
+    matricula2_resultado_p95_subida_14 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango15=matricula2_rango15.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p5_bajada_15-1]
-    matricula2_prueba_p5_bajada_15 = fila_bajada_p5_15['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_15 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_15='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_15='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p95_bajada_15-1]
-    matricula2_prueba_p95_bajada_15 = fila_bajada_p95_15['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_15 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_15='CUMPLE'
-    else:
-       matricula2_resultado_p155_bajada_15='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_14 = math.ceil(num_filas_14*0.05)
+    matricula2_prueba_p5_bajada_14 = 0 # Initialize
+    matricula2_resultado_p5_bajada_14 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_14 = math.ceil(num_filas_14*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_14 = 0 # Initialize
+    matricula2_resultado_p95_bajada_14 = 'NO APLICA' # Initialize
+
+    if num_filas_14 > 0:
+        matricula2_rango14=matricula2_rango14.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p5_subida_14-1]
+        matricula2_prueba_p5_subida_14 = fila_subida_p5_14['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_14 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_14='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_14='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p95_subida_14-1]
+        matricula2_prueba_p95_subida_14 = fila_subida_p95_14['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_14 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_14='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_14='NO CUMPLE'
+
+        #bajada 0.05
+        matricula2_rango14=matricula2_rango14.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p5_bajada_14-1]
+        matricula2_prueba_p5_bajada_14 = fila_bajada_p5_14['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_14 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_14='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_14='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_14 = matricula2_rango14.iloc[matricula2_posicion_prueba_p95_bajada_14-1]
+        matricula2_prueba_p95_bajada_14 = fila_bajada_p95_14['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_14 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_14='CUMPLE'
+        else:
+           matricula2_resultado_p145_bajada_14='NO CUMPLE'
 
 
+    matricula2_rango15 = matricula2[(matricula2['Rango'] == 15)]
 
+    #subida 0.05
+    num_filas_15 = (len(matricula2_rango15))
+    matricula2_posicion_prueba_p5_subida_15 = math.ceil(num_filas_15*0.05)
 
-matricula2_rango16 = matricula2[(matricula2['Rango'] == 16)]
-
-
-#subida 0.05
-num_filas_16 = (len(matricula2_rango16))
-matricula2_posicion_prueba_p5_subida_16 = math.ceil(num_filas_16*0.05)
-
-matricula2_prueba_p5_subida_16 = 0 # Initialize
-matricula2_resultado_p5_subida_16 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_16 = math.ceil(num_filas_16*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_16 = 0 # Initialize
-matricula2_resultado_p95_subida_16 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_16 = math.ceil(num_filas_16*0.05)
-matricula2_prueba_p5_bajada_16 = 0 # Initialize
-matricula2_resultado_p5_bajada_16 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_16 = math.ceil(num_filas_16*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_16 = 0 # Initialize
-matricula2_resultado_p95_bajada_16 = 'NO APLICA' # Initialize
-
-if num_filas_16 > 0:
-    matricula2_rango16=matricula2_rango16.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p5_subida_16-1]
-    matricula2_prueba_p5_subida_16 = fila_subida_p5_16['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_16 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_16='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_16='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p95_subida_16-1]
-    matricula2_prueba_p95_subida_16 = fila_subida_p95_16['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_16 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_16='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_16='NO CUMPLE'
+    matricula2_prueba_p5_subida_15 = 0 # Initialize
+    matricula2_resultado_p5_subida_15 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_15 = math.ceil(num_filas_15*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_15 = 0 # Initialize
+    matricula2_resultado_p95_subida_15 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango16=matricula2_rango16.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p5_bajada_16-1]
-    matricula2_prueba_p5_bajada_16 = fila_bajada_p5_16['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_16 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_16='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_16='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p95_bajada_16-1]
-    matricula2_prueba_p95_bajada_16 = fila_bajada_p95_16['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_16 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_16='CUMPLE'
-    else:
-       matricula2_resultado_p165_bajada_16='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_15 = math.ceil(num_filas_15*0.05)
+    matricula2_prueba_p5_bajada_15 = 0 # Initialize
+    matricula2_resultado_p5_bajada_15 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_15 = math.ceil(num_filas_15*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_15 = 0 # Initialize
+    matricula2_resultado_p95_bajada_15 = 'NO APLICA' # Initialize
 
+    if num_filas_15 > 0:
+        matricula2_rango15=matricula2_rango15.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p5_subida_15-1]
+        matricula2_prueba_p5_subida_15 = fila_subida_p5_15['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_15 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_15='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_15='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p95_subida_15-1]
+        matricula2_prueba_p95_subida_15 = fila_subida_p95_15['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_15 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_15='CUMPLE'
+        else:
+           matricula2_resultado_p155_subida_15='NO CUMPLE'
 
+        #bajada 0.05
+        matricula2_rango15=matricula2_rango15.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p5_bajada_15-1]
+        matricula2_prueba_p5_bajada_15 = fila_bajada_p5_15['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_15 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_15='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_15='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_15 = matricula2_rango15.iloc[matricula2_posicion_prueba_p95_bajada_15-1]
+        matricula2_prueba_p95_bajada_15 = fila_bajada_p95_15['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_15 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_15='CUMPLE'
+        else:
+           matricula2_resultado_p155_bajada_15='NO CUMPLE'
 
+    matricula2_rango16 = matricula2[(matricula2['Rango'] == 16)]
 
-matricula2_rango17 = matricula2[(matricula2['Rango'] == 17)]
+    #subida 0.05
+    num_filas_16 = (len(matricula2_rango16))
+    matricula2_posicion_prueba_p5_subida_16 = math.ceil(num_filas_16*0.05)
 
-
-#subida 0.05
-num_filas_17 = (len(matricula2_rango17))
-matricula2_posicion_prueba_p5_subida_17 = math.ceil(num_filas_17*0.05)
-
-matricula2_prueba_p5_subida_17 = 0 # Initialize
-matricula2_resultado_p5_subida_17 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_17 = math.ceil(num_filas_17*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_17 = 0 # Initialize
-matricula2_resultado_p95_subida_17 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_17 = math.ceil(num_filas_17*0.05)
-matricula2_prueba_p5_bajada_17 = 0 # Initialize
-matricula2_resultado_p5_bajada_17 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_17 = math.ceil(num_filas_17*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_17 = 0 # Initialize
-matricula2_resultado_p95_bajada_17 = 'NO APLICA' # Initialize
-
-if num_filas_17 > 0:
-    matricula2_rango17=matricula2_rango17.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p5_subida_17-1]
-    matricula2_prueba_p5_subida_17 = fila_subida_p5_17['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_17 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_17='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_17='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p95_subida_17-1]
-    matricula2_prueba_p95_subida_17 = fila_subida_p95_17['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_17 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_17='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_17='NO CUMPLE'
+    matricula2_prueba_p5_subida_16 = 0 # Initialize
+    matricula2_resultado_p5_subida_16 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_16 = math.ceil(num_filas_16*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_16 = 0 # Initialize
+    matricula2_resultado_p95_subida_16 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango17=matricula2_rango17.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p5_bajada_17-1]
-    matricula2_prueba_p5_bajada_17 = fila_bajada_p5_17['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_17 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_17='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_17='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p95_bajada_17-1]
-    matricula2_prueba_p95_bajada_17 = fila_bajada_p95_17['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_17 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_17='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_17='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_16 = math.ceil(num_filas_16*0.05)
+    matricula2_prueba_p5_bajada_16 = 0 # Initialize
+    matricula2_resultado_p5_bajada_16 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_16 = math.ceil(num_filas_16*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_16 = 0 # Initialize
+    matricula2_resultado_p95_bajada_16 = 'NO APLICA' # Initialize
+
+    if num_filas_16 > 0:
+        matricula2_rango16=matricula2_rango16.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p5_subida_16-1]
+        matricula2_prueba_p5_subida_16 = fila_subida_p5_16['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_16 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_16='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_16='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p95_subida_16-1]
+        matricula2_prueba_p95_subida_16 = fila_subida_p95_16['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_16 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_16='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_16='NO CUMPLE'
+
+        #bajada 0.05
+        matricula2_rango16=matricula2_rango16.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p5_bajada_16-1]
+        matricula2_prueba_p5_bajada_16 = fila_bajada_p5_16['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_16 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_16='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_16='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_16 = matricula2_rango16.iloc[matricula2_posicion_prueba_p95_bajada_16-1]
+        matricula2_prueba_p95_bajada_16 = fila_bajada_p95_16['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_16 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_16='CUMPLE'
+        else:
+           matricula2_resultado_p165_bajada_16='NO CUMPLE'
 
 
 
-matricula2_rango18 = matricula2[(matricula2['Rango'] == 18)]
 
-#subida 0.05
-num_filas_18 = (len(matricula2_rango18))
-matricula2_posicion_prueba_p5_subida_18 = math.ceil(num_filas_18*0.05)
+    matricula2_rango17 = matricula2[(matricula2['Rango'] == 17)]
+    #subida 0.05
+    num_filas_17 = (len(matricula2_rango17))
+    matricula2_posicion_prueba_p5_subida_17 = math.ceil(num_filas_17*0.05)
 
-matricula2_prueba_p5_subida_18 = 0 # Initialize
-matricula2_resultado_p5_subida_18 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_18 = math.ceil(num_filas_18*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_18 = 0 # Initialize
-matricula2_resultado_p95_subida_18 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_18 = math.ceil(num_filas_18*0.05)
-matricula2_prueba_p5_bajada_18 = 0 # Initialize
-matricula2_resultado_p5_bajada_18 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_18 = math.ceil(num_filas_18*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_18 = 0 # Initialize
-matricula2_resultado_p95_bajada_18 = 'NO APLICA' # Initialize
-
-if num_filas_18 > 0:
-    matricula2_rango18=matricula2_rango18.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p5_subida_18-1]
-    matricula2_prueba_p5_subida_18 = fila_subida_p5_18['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_18 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_18='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_18='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p95_subida_18-1]
-    matricula2_prueba_p95_subida_18 = fila_subida_p95_18['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_18 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_18='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_18='NO CUMPLE'
-
-    #bajada 0.05
-    matricula2_rango18=matricula2_rango18.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p5_bajada_18-1]
-    matricula2_prueba_p5_bajada_18 = fila_bajada_p5_18['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_18 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_18='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_18='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p95_bajada_18-1]
-    matricula2_prueba_p95_bajada_18 = fila_bajada_p95_18['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_18 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_18='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_18='NO CUMPLE'
-
-
-
-matricula2_rango19 = matricula2[(matricula2['Rango'] == 19)]
-
-
-#subida 0.05
-num_filas_19 = (len(matricula2_rango19))
-matricula2_posicion_prueba_p5_subida_19 = math.ceil(num_filas_19*0.05)
-
-matricula2_prueba_p5_subida_19 = 0 # Initialize
-matricula2_resultado_p5_subida_19 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_19 = math.ceil(num_filas_19*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_19 = 0 # Initialize
-matricula2_resultado_p95_subida_19 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_19 = math.ceil(num_filas_19*0.05)
-matricula2_prueba_p5_bajada_19 = 0 # Initialize
-matricula2_resultado_p5_bajada_19 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_19 = math.ceil(num_filas_19*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_19 = 0 # Initialize
-matricula2_resultado_p95_bajada_19 = 'NO APLICA' # Initialize
-
-if num_filas_19 > 0:
-    matricula2_rango19=matricula2_rango19.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p5_subida_19-1]
-    matricula2_prueba_p5_subida_19 = fila_subida_p5_19['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_19 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_19='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_19='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p95_subida_19-1]
-    matricula2_prueba_p95_subida_19 = fila_subida_p95_19['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_19 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_19='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_19='NO CUMPLE'
+    matricula2_prueba_p5_subida_17 = 0 # Initialize
+    matricula2_resultado_p5_subida_17 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_17 = math.ceil(num_filas_17*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_17 = 0 # Initialize
+    matricula2_resultado_p95_subida_17 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango19=matricula2_rango19.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p5_bajada_19-1]
-    matricula2_prueba_p5_bajada_19 = fila_bajada_p5_19['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_19 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_19='CUMPLE'
-    else:
-       matricula2_resultado_p5_bajada_19='NO CUMPLE'
-    #bajada 0.95
-    fila_bajada_p95_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p95_bajada_19-1]
-    matricula2_prueba_p95_bajada_19 = fila_bajada_p95_19['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_19 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_19='CUMPLE'
-    else:
-       matricula2_resultado_p95_bajada_19='NO CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_17 = math.ceil(num_filas_17*0.05)
+    matricula2_prueba_p5_bajada_17 = 0 # Initialize
+    matricula2_resultado_p5_bajada_17 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_17 = math.ceil(num_filas_17*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_17 = 0 # Initialize
+    matricula2_resultado_p95_bajada_17 = 'NO APLICA' # Initialize
+
+    if num_filas_17 > 0:
+        matricula2_rango17=matricula2_rango17.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p5_subida_17-1]
+        matricula2_prueba_p5_subida_17 = fila_subida_p5_17['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_17 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_17='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_17='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p95_subida_17-1]
+        matricula2_prueba_p95_subida_17 = fila_subida_p95_17['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_17 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_17='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_17='NO CUMPLE'
+    
+        #bajada 0.05
+        matricula2_rango17=matricula2_rango17.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p5_bajada_17-1]
+        matricula2_prueba_p5_bajada_17 = fila_bajada_p5_17['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_17 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_17='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_17='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_17 = matricula2_rango17.iloc[matricula2_posicion_prueba_p95_bajada_17-1]
+        matricula2_prueba_p95_bajada_17 = fila_bajada_p95_17['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_17 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_17='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_17='NO CUMPLE'
+    
+    
+    
+    matricula2_rango18 = matricula2[(matricula2['Rango'] == 18)]
+    
+    #subida 0.05
+    num_filas_18 = (len(matricula2_rango18))
+    matricula2_posicion_prueba_p5_subida_18 = math.ceil(num_filas_18*0.05)
+    
+    matricula2_prueba_p5_subida_18 = 0 # Initialize
+    matricula2_resultado_p5_subida_18 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_18 = math.ceil(num_filas_18*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_18 = 0 # Initialize
+    matricula2_resultado_p95_subida_18 = 'NO APLICA' # Initialize
+    
+    #bajada 0.05
+    matricula2_posicion_prueba_p5_bajada_18 = math.ceil(num_filas_18*0.05)
+    matricula2_prueba_p5_bajada_18 = 0 # Initialize
+    matricula2_resultado_p5_bajada_18 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_18 = math.ceil(num_filas_18*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_18 = 0 # Initialize
+    matricula2_resultado_p95_bajada_18 = 'NO APLICA' # Initialize
+
+    if num_filas_18 > 0:
+        matricula2_rango18=matricula2_rango18.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p5_subida_18-1]
+        matricula2_prueba_p5_subida_18 = fila_subida_p5_18['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_18 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_18='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_18='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p95_subida_18-1]
+        matricula2_prueba_p95_subida_18 = fila_subida_p95_18['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_18 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_18='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_18='NO CUMPLE'
+    
+        #bajada 0.05
+        matricula2_rango18=matricula2_rango18.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p5_bajada_18-1]
+        matricula2_prueba_p5_bajada_18 = fila_bajada_p5_18['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_18 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_18='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_18='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_18 = matricula2_rango18.iloc[matricula2_posicion_prueba_p95_bajada_18-1]
+        matricula2_prueba_p95_bajada_18 = fila_bajada_p95_18['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_18 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_18='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_18='NO CUMPLE'
+    
 
 
+    matricula2_rango19 = matricula2[(matricula2['Rango'] == 19)]
 
-matricula2_rango20 = matricula2[(matricula2['Rango'] == 20)]
 
-#subida 0.05
-num_filas_20 = (len(matricula2_rango20))
-matricula2_posicion_prueba_p5_subida_20 = math.ceil(num_filas_20*0.05)
-
-matricula2_prueba_p5_subida_20 = 0 # Initialize
-matricula2_resultado_p5_subida_20 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_subida_20 = math.ceil(num_filas_20*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_subida_20 = 0 # Initialize
-matricula2_resultado_p95_subida_20 = 'NO APLICA' # Initialize
-
-#bajada 0.05
-matricula2_posicion_prueba_p5_bajada_20 = math.ceil(num_filas_20*0.05)
-matricula2_prueba_p5_bajada_20 = 0 # Initialize
-matricula2_resultado_p5_bajada_20 = 'NO APLICA' # Initialize
-matricula2_posicion_prueba_p95_bajada_20 = math.ceil(num_filas_20*0.95) # Keep outside if as it's just a calculation
-matricula2_prueba_p95_bajada_20 = 0 # Initialize
-matricula2_resultado_p95_bajada_20 = 'NO APLICA' # Initialize
-
-if num_filas_20 > 0:
-    matricula2_rango20=matricula2_rango20.sort_values(by='Velocidad de subida [Kbps]')
-    fila_subida_p5_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p5_subida_20-1]
-    matricula2_prueba_p5_subida_20 = fila_subida_p5_20['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p5_subida_20 >= matricula2_velocidad_subida:
-       matricula2_resultado_p5_subida_20='CUMPLE'
-    else:
-       matricula2_resultado_p5_subida_20='NO CUMPLE'
-    #subida 0.95
-    fila_subida_p95_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p95_subida_20-1]
-    matricula2_prueba_p95_subida_20 = fila_subida_p95_20['Velocidad de subida [Kbps]']
-    if matricula2_prueba_p95_subida_20 >= matricula2_velocidad_subida:
-       matricula2_resultado_p95_subida_20='CUMPLE'
-    else:
-       matricula2_resultado_p95_subida_20='NO CUMPLE'
+    #subida 0.05
+    num_filas_19 = (len(matricula2_rango19))
+    matricula2_posicion_prueba_p5_subida_19 = math.ceil(num_filas_19*0.05)
+    
+    matricula2_prueba_p5_subida_19 = 0 # Initialize
+    matricula2_resultado_p5_subida_19 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_19 = math.ceil(num_filas_19*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_19 = 0 # Initialize
+    matricula2_resultado_p95_subida_19 = 'NO APLICA' # Initialize
 
     #bajada 0.05
-    matricula2_rango20=matricula2_rango20.sort_values(by='Velocidad de bajada [Kbps]')
-    fila_bajada_p5_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p5_bajada_20-1]
-    matricula2_prueba_p5_bajada_20 = fila_bajada_p5_20['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p5_bajada_20 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p5_bajada_20='CUMPLE'
+    matricula2_posicion_prueba_p5_bajada_19 = math.ceil(num_filas_19*0.05)
+    matricula2_prueba_p5_bajada_19 = 0 # Initialize
+    matricula2_resultado_p5_bajada_19 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_19 = math.ceil(num_filas_19*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_19 = 0 # Initialize
+    matricula2_resultado_p95_bajada_19 = 'NO APLICA' # Initialize
+    
+    if num_filas_19 > 0:
+        matricula2_rango19=matricula2_rango19.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p5_subida_19-1]
+        matricula2_prueba_p5_subida_19 = fila_subida_p5_19['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_19 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_19='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_19='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p95_subida_19-1]
+        matricula2_prueba_p95_subida_19 = fila_subida_p95_19['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_19 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_19='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_19='NO CUMPLE'
+    
+        #bajada 0.05
+        matricula2_rango19=matricula2_rango19.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p5_bajada_19-1]
+        matricula2_prueba_p5_bajada_19 = fila_bajada_p5_19['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_19 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_19='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_19='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_19 = matricula2_rango19.iloc[matricula2_posicion_prueba_p95_bajada_19-1]
+        matricula2_prueba_p95_bajada_19 = fila_bajada_p95_19['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_19 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_19='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_19='NO CUMPLE'
+
+
+
+    matricula2_rango20 = matricula2[(matricula2['Rango'] == 20)]
+
+    #subida 0.05
+    num_filas_20 = (len(matricula2_rango20))
+    matricula2_posicion_prueba_p5_subida_20 = math.ceil(num_filas_20*0.05)
+
+    matricula2_prueba_p5_subida_20 = 0 # Initialize
+    matricula2_resultado_p5_subida_20 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_subida_20 = math.ceil(num_filas_20*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_subida_20 = 0 # Initialize
+    matricula2_resultado_p95_subida_20 = 'NO APLICA' # Initialize
+
+    #bajada 0.05
+    matricula2_posicion_prueba_p5_bajada_20 = math.ceil(num_filas_20*0.05)
+    matricula2_prueba_p5_bajada_20 = 0 # Initialize
+    matricula2_resultado_p5_bajada_20 = 'NO APLICA' # Initialize
+    matricula2_posicion_prueba_p95_bajada_20 = math.ceil(num_filas_20*0.95) # Keep outside if as it's just a calculation
+    matricula2_prueba_p95_bajada_20 = 0 # Initialize
+    matricula2_resultado_p95_bajada_20 = 'NO APLICA' # Initialize
+
+    if num_filas_20 > 0:
+        matricula2_rango20=matricula2_rango20.sort_values(by='Velocidad de subida [Kbps]')
+        fila_subida_p5_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p5_subida_20-1]
+        matricula2_prueba_p5_subida_20 = fila_subida_p5_20['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p5_subida_20 >= matricula2_velocidad_subida:
+           matricula2_resultado_p5_subida_20='CUMPLE'
+        else:
+           matricula2_resultado_p5_subida_20='NO CUMPLE'
+        #subida 0.95
+        fila_subida_p95_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p95_subida_20-1]
+        matricula2_prueba_p95_subida_20 = fila_subida_p95_20['Velocidad de subida [Kbps]']
+        if matricula2_prueba_p95_subida_20 >= matricula2_velocidad_subida:
+           matricula2_resultado_p95_subida_20='CUMPLE'
+        else:
+           matricula2_resultado_p95_subida_20='NO CUMPLE'
+    
+        #bajada 0.05
+        matricula2_rango20=matricula2_rango20.sort_values(by='Velocidad de bajada [Kbps]')
+        fila_bajada_p5_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p5_bajada_20-1]
+        matricula2_prueba_p5_bajada_20 = fila_bajada_p5_20['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p5_bajada_20 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p5_bajada_20='CUMPLE'
+        else:
+           matricula2_resultado_p5_bajada_20='NO CUMPLE'
+        #bajada 0.95
+        fila_bajada_p95_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p95_bajada_20-1]
+        matricula2_prueba_p95_bajada_20 = fila_bajada_p95_20['Velocidad de bajada [Kbps]']
+        if matricula2_prueba_p95_bajada_20 >= matricula2_velocidad_bajada:
+           matricula2_resultado_p95_bajada_20='CUMPLE'
+        else:
+           matricula2_resultado_p95_bajada_20='NO CUMPLE'
+
+    #matricula3
+
+    matricula3_rango6 = matricula3[(matricula3['Rango'] == 6)]
+
+    #subida 0.05
+    num_filas_6 = (len(matricula3_rango6))
+    matricula3_posicion_prueba_p5_subida_6 = math.ceil(num_filas_6*0.05)
+
+    matricula3_rango6=matricula3_rango6.sort_values(by='Velocidad de subida [Kbps]')
+    fila_subida_p5_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p5_subida_6-1]
+    matricula3_prueba_p5_subida_6 = fila_subida_p5_6['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p5_subida_6 >= matricula3_velocidad_subida:
+       matricula3_resultado_p5_subida_6='CUMPLE'
     else:
-       matricula2_resultado_p5_bajada_20='NO CUMPLE'
+       matricula3_resultado_p5_subida_6='NO CUMPLE'
+    #subida 0.95
+    matricula3_posicion_prueba_p95_subida_6 = math.ceil(num_filas_6*0.95)
+    fila_subida_p95_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p95_subida_6-1]
+    matricula3_prueba_p95_subida_6 = fila_subida_p95_6['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p95_subida_6 >= matricula3_velocidad_subida:
+       matricula3_resultado_p95_subida_6='CUMPLE'
+    else:
+       matricula3_resultado_p95_subida_6='NO CUMPLE'
+
+    #bajada 0.05
+    matricula3_posicion_prueba_p5_bajada_6 = math.ceil(num_filas_6*0.05)
+    matricula3_rango6=matricula3_rango6.sort_values(by='Velocidad de bajada [Kbps]')
+    fila_bajada_p5_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p5_bajada_6-1]
+    matricula3_prueba_p5_bajada_6 = fila_bajada_p5_6['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p5_bajada_6 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p5_bajada_6='CUMPLE'
+    else:
+       matricula3_resultado_p5_bajada_6='NO CUMPLE'
     #bajada 0.95
-    fila_bajada_p95_20 = matricula2_rango20.iloc[matricula2_posicion_prueba_p95_bajada_20-1]
-    matricula2_prueba_p95_bajada_20 = fila_bajada_p95_20['Velocidad de bajada [Kbps]']
-    if matricula2_prueba_p95_bajada_20 >= matricula2_velocidad_bajada:
-       matricula2_resultado_p95_bajada_20='CUMPLE'
+    matricula3_posicion_prueba_p95_bajada_6 = math.ceil(num_filas_6*0.95)
+    fila_bajada_p95_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p95_bajada_6-1]
+    matricula3_prueba_p95_bajada_6 = fila_bajada_p95_6['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p95_bajada_6 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p95_bajada_6='CUMPLE'
     else:
-       matricula2_resultado_p95_bajada_20='NO CUMPLE'
+       matricula3_resultado_p95_bajada_6='NO CUMPLE'
+    
 
-#matricula3
-
-matricula3_rango6 = matricula3[(matricula3['Rango'] == 6)]
-
-#subida 0.05
-num_filas_6 = (len(matricula3_rango6))
-matricula3_posicion_prueba_p5_subida_6 = math.ceil(num_filas_6*0.05)
-
-matricula3_rango6=matricula3_rango6.sort_values(by='Velocidad de subida [Kbps]')
-fila_subida_p5_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p5_subida_6-1]
-matricula3_prueba_p5_subida_6 = fila_subida_p5_6['Velocidad de subida [Kbps]']
-if matricula3_prueba_p5_subida_6 >= matricula3_velocidad_subida:
-   matricula3_resultado_p5_subida_6='CUMPLE'
-else:
-   matricula3_resultado_p5_subida_6='NO CUMPLE'
-#subida 0.95
-matricula3_posicion_prueba_p95_subida_6 = math.ceil(num_filas_6*0.95)
-fila_subida_p95_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p95_subida_6-1]
-matricula3_prueba_p95_subida_6 = fila_subida_p95_6['Velocidad de subida [Kbps]']
-if matricula3_prueba_p95_subida_6 >= matricula3_velocidad_subida:
-   matricula3_resultado_p95_subida_6='CUMPLE'
-else:
-   matricula3_resultado_p95_subida_6='NO CUMPLE'
-
-#bajada 0.05
-matricula3_posicion_prueba_p5_bajada_6 = math.ceil(num_filas_6*0.05)
-matricula3_rango6=matricula3_rango6.sort_values(by='Velocidad de bajada [Kbps]')
-fila_bajada_p5_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p5_bajada_6-1]
-matricula3_prueba_p5_bajada_6 = fila_bajada_p5_6['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p5_bajada_6 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p5_bajada_6='CUMPLE'
-else:
-   matricula3_resultado_p5_bajada_6='NO CUMPLE'
-#bajada 0.95
-matricula3_posicion_prueba_p95_bajada_6 = math.ceil(num_filas_6*0.95)
-fila_bajada_p95_6 = matricula3_rango6.iloc[matricula3_posicion_prueba_p95_bajada_6-1]
-matricula3_prueba_p95_bajada_6 = fila_bajada_p95_6['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p95_bajada_6 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p95_bajada_6='CUMPLE'
-else:
-   matricula3_resultado_p95_bajada_6='NO CUMPLE'
+    matricula3_rango7 = matricula3[(matricula3['Rango'] == 7)]
 
 
-matricula3_rango7 = matricula3[(matricula3['Rango'] == 7)]
+    #subida 0.05
+    num_filas_7 = (len(matricula3_rango7))
+    matricula3_posicion_prueba_p5_subida_7 = math.ceil(num_filas_7*0.05)
+    matricula3_rango7=matricula3_rango7.sort_values(by='Velocidad de subida [Kbps]')
+    fila_subida_p5_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p5_subida_7-1]
+    matricula3_prueba_p5_subida_7 = fila_subida_p5_7['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p5_subida_7 >= matricula3_velocidad_subida:
+       matricula3_resultado_p5_subida_7='CUMPLE'
+    else:
+       matricula3_resultado_p5_subida_7='NO CUMPLE'
+    #subida 0.95
+    matricula3_posicion_prueba_p95_subida_7 = math.ceil(num_filas_7*0.95)
+    fila_subida_p95_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p95_subida_7-1]
+    matricula3_prueba_p95_subida_7 = fila_subida_p95_7['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p95_subida_7 >= matricula3_velocidad_subida:
+       matricula3_resultado_p95_subida_7='CUMPLE'
+    else:
+       matricula3_resultado_p95_subida_7='NO CUMPLE'
+
+    #bajada 0.05
+    matricula3_posicion_prueba_p5_bajada_7 = math.ceil(num_filas_7*0.05)
+    matricula3_rango7=matricula3_rango7.sort_values(by='Velocidad de bajada [Kbps]')
+    fila_bajada_p5_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p5_bajada_7-1]
+    matricula3_prueba_p5_bajada_7 = fila_bajada_p5_7['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p5_bajada_7 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p5_bajada_7='CUMPLE'
+    else:
+       matricula3_resultado_p5_bajada_7='NO CUMPLE'
+    #bajada 0.95
+    matricula3_posicion_prueba_p95_bajada_7 = math.ceil(num_filas_7*0.95)
+    fila_bajada_p95_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p95_bajada_7-1]
+    matricula3_prueba_p95_bajada_7 = fila_bajada_p95_7['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p95_bajada_7 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p95_bajada_7='CUMPLE'
+    else:
+       matricula3_resultado_p95_bajada_7='NO CUMPLE'
+
+    matricula3_rango8 = matricula3[(matricula3['Rango'] == 8)]
+
+    #subida 0.05
+    num_filas_8 = (len(matricula3_rango8))
+    matricula3_posicion_prueba_p5_subida_8 = math.ceil(num_filas_8*0.05)
+    matricula3_rango8=matricula3_rango8.sort_values(by='Velocidad de subida [Kbps]')
+    fila_subida_p5_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p5_subida_8-1]
+    matricula3_prueba_p5_subida_8 = fila_subida_p5_8['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p5_subida_8 >= matricula3_velocidad_subida:
+       matricula3_resultado_p5_subida_8='CUMPLE'
+    else:
+       matricula3_resultado_p5_subida_8='NO CUMPLE'
+    #subida 0.95
+    matricula3_posicion_prueba_p95_subida_8 = math.ceil(num_filas_8*0.95)
+    fila_subida_p95_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p95_subida_8-1]
+    matricula3_prueba_p95_subida_8 = fila_subida_p95_8['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p95_subida_8 >= matricula3_velocidad_subida:
+       matricula3_resultado_p95_subida_8='CUMPLE'
+    else:
+       matricula3_resultado_p95_subida_8='NO CUMPLE'
+
+    #bajada 0.05
+    matricula3_posicion_prueba_p5_bajada_8 = math.ceil(num_filas_8*0.05)
+    matricula3_rango8=matricula3_rango8.sort_values(by='Velocidad de bajada [Kbps]')
+    fila_bajada_p5_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p5_bajada_8-1]
+    matricula3_prueba_p5_bajada_8 = fila_bajada_p5_8['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p5_bajada_8 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p5_bajada_8='CUMPLE'
+    else:
+       matricula3_resultado_p5_bajada_8='NO CUMPLE'
+    #bajada 0.95
+    matricula3_posicion_prueba_p95_bajada_8 = math.ceil(num_filas_8*0.95)
+    fila_bajada_p95_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p95_bajada_8-1]
+    matricula3_prueba_p95_bajada_8 = fila_bajada_p95_8['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p95_bajada_8 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p95_bajada_8='CUMPLE'
+    else:
+       matricula3_resultado_p95_bajada_8='NO CUMPLE'
+    
 
 
-#subida 0.05
-num_filas_7 = (len(matricula3_rango7))
-matricula3_posicion_prueba_p5_subida_7 = math.ceil(num_filas_7*0.05)
-matricula3_rango7=matricula3_rango7.sort_values(by='Velocidad de subida [Kbps]')
-fila_subida_p5_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p5_subida_7-1]
-matricula3_prueba_p5_subida_7 = fila_subida_p5_7['Velocidad de subida [Kbps]']
-if matricula3_prueba_p5_subida_7 >= matricula3_velocidad_subida:
-   matricula3_resultado_p5_subida_7='CUMPLE'
-else:
-   matricula3_resultado_p5_subida_7='NO CUMPLE'
-#subida 0.95
-matricula3_posicion_prueba_p95_subida_7 = math.ceil(num_filas_7*0.95)
-fila_subida_p95_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p95_subida_7-1]
-matricula3_prueba_p95_subida_7 = fila_subida_p95_7['Velocidad de subida [Kbps]']
-if matricula3_prueba_p95_subida_7 >= matricula3_velocidad_subida:
-   matricula3_resultado_p95_subida_7='CUMPLE'
-else:
-   matricula3_resultado_p95_subida_7='NO CUMPLE'
-
-#bajada 0.05
-matricula3_posicion_prueba_p5_bajada_7 = math.ceil(num_filas_7*0.05)
-matricula3_rango7=matricula3_rango7.sort_values(by='Velocidad de bajada [Kbps]')
-fila_bajada_p5_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p5_bajada_7-1]
-matricula3_prueba_p5_bajada_7 = fila_bajada_p5_7['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p5_bajada_7 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p5_bajada_7='CUMPLE'
-else:
-   matricula3_resultado_p5_bajada_7='NO CUMPLE'
-#bajada 0.95
-matricula3_posicion_prueba_p95_bajada_7 = math.ceil(num_filas_7*0.95)
-fila_bajada_p95_7 = matricula3_rango7.iloc[matricula3_posicion_prueba_p95_bajada_7-1]
-matricula3_prueba_p95_bajada_7 = fila_bajada_p95_7['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p95_bajada_7 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p95_bajada_7='CUMPLE'
-else:
-   matricula3_resultado_p95_bajada_7='NO CUMPLE'
+    matricula3_rango9 = matricula3[(matricula3['Rango'] == 9)]
 
 
-
-matricula3_rango8 = matricula3[(matricula3['Rango'] == 8)]
-
-
-#subida 0.05
-num_filas_8 = (len(matricula3_rango8))
-matricula3_posicion_prueba_p5_subida_8 = math.ceil(num_filas_8*0.05)
-matricula3_rango8=matricula3_rango8.sort_values(by='Velocidad de subida [Kbps]')
-fila_subida_p5_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p5_subida_8-1]
-matricula3_prueba_p5_subida_8 = fila_subida_p5_8['Velocidad de subida [Kbps]']
-if matricula3_prueba_p5_subida_8 >= matricula3_velocidad_subida:
-   matricula3_resultado_p5_subida_8='CUMPLE'
-else:
-   matricula3_resultado_p5_subida_8='NO CUMPLE'
-#subida 0.95
-matricula3_posicion_prueba_p95_subida_8 = math.ceil(num_filas_8*0.95)
-fila_subida_p95_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p95_subida_8-1]
-matricula3_prueba_p95_subida_8 = fila_subida_p95_8['Velocidad de subida [Kbps]']
-if matricula3_prueba_p95_subida_8 >= matricula3_velocidad_subida:
-   matricula3_resultado_p95_subida_8='CUMPLE'
-else:
-   matricula3_resultado_p95_subida_8='NO CUMPLE'
-
-#bajada 0.05
-matricula3_posicion_prueba_p5_bajada_8 = math.ceil(num_filas_8*0.05)
-matricula3_rango8=matricula3_rango8.sort_values(by='Velocidad de bajada [Kbps]')
-fila_bajada_p5_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p5_bajada_8-1]
-matricula3_prueba_p5_bajada_8 = fila_bajada_p5_8['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p5_bajada_8 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p5_bajada_8='CUMPLE'
-else:
-   matricula3_resultado_p5_bajada_8='NO CUMPLE'
-#bajada 0.95
-matricula3_posicion_prueba_p95_bajada_8 = math.ceil(num_filas_8*0.95)
-fila_bajada_p95_8 = matricula3_rango8.iloc[matricula3_posicion_prueba_p95_bajada_8-1]
-matricula3_prueba_p95_bajada_8 = fila_bajada_p95_8['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p95_bajada_8 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p95_bajada_8='CUMPLE'
-else:
-   matricula3_resultado_p95_bajada_8='NO CUMPLE'
+    #subida 0.05
+    num_filas_9 = (len(matricula3_rango9))
+    matricula3_posicion_prueba_p5_subida_9 = math.ceil(num_filas_9*0.05)
+    matricula3_rango9=matricula3_rango9.sort_values(by='Velocidad de subida [Kbps]')
+    fila_subida_p5_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p5_subida_9-1]
+    matricula3_prueba_p5_subida_9 = fila_subida_p5_9['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p5_subida_9 >= matricula3_velocidad_subida:
+       matricula3_resultado_p5_subida_9='CUMPLE'
+    else:
+       matricula3_resultado_p5_subida_9='NO CUMPLE'
+    #subida 0.95
+    matricula3_posicion_prueba_p95_subida_9 = math.ceil(num_filas_9*0.95)
+    fila_subida_p95_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p95_subida_9-1]
+    matricula3_prueba_p95_subida_9 = fila_subida_p95_9['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p95_subida_9 >= matricula3_velocidad_subida:
+       matricula3_resultado_p95_subida_9='CUMPLE'
+    else:
+       matricula3_resultado_p95_subida_9='NO CUMPLE'
+    
+    #bajada 0.05
+    matricula3_posicion_prueba_p5_bajada_9 = math.ceil(num_filas_9*0.05)
+    matricula3_rango9=matricula3_rango9.sort_values(by='Velocidad de bajada [Kbps]')
+    fila_bajada_p5_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p5_bajada_9-1]
+    matricula3_prueba_p5_bajada_9 = fila_bajada_p5_9['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p5_bajada_9 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p5_bajada_9='CUMPLE'
+    else:
+       matricula3_resultado_p5_bajada_9='NO CUMPLE'
+    #bajada 0.95
+    matricula3_posicion_prueba_p95_bajada_9 = math.ceil(num_filas_9*0.95)
+    fila_bajada_p95_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p95_bajada_9-1]
+    matricula3_prueba_p95_bajada_9 = fila_bajada_p95_9['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p95_bajada_9 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p95_bajada_9='CUMPLE'
+    else:
+       matricula3_resultado_p95_bajada_9='NO CUMPLE'
+    
+    matricula3_rango10 = matricula3[(matricula3['Rango'] == 10)]
 
 
-
-matricula3_rango9 = matricula3[(matricula3['Rango'] == 9)]
-
-
-#subida 0.05
-num_filas_9 = (len(matricula3_rango9))
-matricula3_posicion_prueba_p5_subida_9 = math.ceil(num_filas_9*0.05)
-matricula3_rango9=matricula3_rango9.sort_values(by='Velocidad de subida [Kbps]')
-fila_subida_p5_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p5_subida_9-1]
-matricula3_prueba_p5_subida_9 = fila_subida_p5_9['Velocidad de subida [Kbps]']
-if matricula3_prueba_p5_subida_9 >= matricula3_velocidad_subida:
-   matricula3_resultado_p5_subida_9='CUMPLE'
-else:
-   matricula3_resultado_p5_subida_9='NO CUMPLE'
-#subida 0.95
-matricula3_posicion_prueba_p95_subida_9 = math.ceil(num_filas_9*0.95)
-fila_subida_p95_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p95_subida_9-1]
-matricula3_prueba_p95_subida_9 = fila_subida_p95_9['Velocidad de subida [Kbps]']
-if matricula3_prueba_p95_subida_9 >= matricula3_velocidad_subida:
-   matricula3_resultado_p95_subida_9='CUMPLE'
-else:
-   matricula3_resultado_p95_subida_9='NO CUMPLE'
-
-#bajada 0.05
-matricula3_posicion_prueba_p5_bajada_9 = math.ceil(num_filas_9*0.05)
-matricula3_rango9=matricula3_rango9.sort_values(by='Velocidad de bajada [Kbps]')
-fila_bajada_p5_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p5_bajada_9-1]
-matricula3_prueba_p5_bajada_9 = fila_bajada_p5_9['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p5_bajada_9 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p5_bajada_9='CUMPLE'
-else:
-   matricula3_resultado_p5_bajada_9='NO CUMPLE'
-#bajada 0.95
-matricula3_posicion_prueba_p95_bajada_9 = math.ceil(num_filas_9*0.95)
-fila_bajada_p95_9 = matricula3_rango9.iloc[matricula3_posicion_prueba_p95_bajada_9-1]
-matricula3_prueba_p95_bajada_9 = fila_bajada_p95_9['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p95_bajada_9 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p95_bajada_9='CUMPLE'
-else:
-   matricula3_resultado_p95_bajada_9='NO CUMPLE'
-
-
-
-matricula3_rango10 = matricula3[(matricula3['Rango'] == 10)]
-
-
-#subida 0.05
-num_filas_10 = (len(matricula3_rango10))
-matricula3_posicion_prueba_p5_subida_10 = math.ceil(num_filas_10*0.05)
-matricula3_rango10=matricula3_rango10.sort_values(by='Velocidad de subida [Kbps]')
-fila_subida_p5_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p5_subida_10-1]
-matricula3_prueba_p5_subida_10 = fila_subida_p5_10['Velocidad de subida [Kbps]']
-if matricula3_prueba_p5_subida_10 >= matricula3_velocidad_subida:
-   matricula3_resultado_p5_subida_10='CUMPLE'
-else:
-   matricula3_resultado_p5_subida_10='NO CUMPLE'
-#subida 0.95
-matricula3_posicion_prueba_p95_subida_10 = math.ceil(num_filas_10*0.95)
-fila_subida_p95_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p95_subida_10-1]
-matricula3_prueba_p95_subida_10 = fila_subida_p95_10['Velocidad de subida [Kbps]']
-if matricula3_prueba_p95_subida_10 >= matricula3_velocidad_subida:
-   matricula3_resultado_p95_subida_10='CUMPLE'
-else:
-   matricula3_resultado_p105_subida_10='NO CUMPLE'
-
-#bajada 0.05
-matricula3_posicion_prueba_p5_bajada_10 = math.ceil(num_filas_10*0.05)
-matricula3_rango10=matricula3_rango10.sort_values(by='Velocidad de bajada [Kbps]')
-fila_bajada_p5_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p5_bajada_10-1]
-matricula3_prueba_p5_bajada_10 = fila_bajada_p5_10['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p5_bajada_10 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p5_bajada_10='CUMPLE'
-else:
-   matricula3_resultado_p5_bajada_10='NO CUMPLE'
-#bajada 0.95
-matricula3_posicion_prueba_p95_bajada_10 = math.ceil(num_filas_10*0.95)
-fila_bajada_p95_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p95_bajada_10-1]
-matricula3_prueba_p95_bajada_10 = fila_bajada_p95_10['Velocidad de bajada [Kbps]']
-if matricula3_prueba_p95_bajada_10 >= matricula3_velocidad_bajada:
-   matricula3_resultado_p95_bajada_10='CUMPLE'
-else:
-   matricula3_resultado_p95_bajada_10='NO CUMPLE'
-
-
+    #subida 0.05
+    num_filas_10 = (len(matricula3_rango10))
+    matricula3_posicion_prueba_p5_subida_10 = math.ceil(num_filas_10*0.05)
+    matricula3_rango10=matricula3_rango10.sort_values(by='Velocidad de subida [Kbps]')
+    fila_subida_p5_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p5_subida_10-1]
+    matricula3_prueba_p5_subida_10 = fila_subida_p5_10['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p5_subida_10 >= matricula3_velocidad_subida:
+       matricula3_resultado_p5_subida_10='CUMPLE'
+    else:
+       matricula3_resultado_p5_subida_10='NO CUMPLE'
+    #subida 0.95
+    matricula3_posicion_prueba_p95_subida_10 = math.ceil(num_filas_10*0.95)
+    fila_subida_p95_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p95_subida_10-1]
+    matricula3_prueba_p95_subida_10 = fila_subida_p95_10['Velocidad de subida [Kbps]']
+    if matricula3_prueba_p95_subida_10 >= matricula3_velocidad_subida:
+       matricula3_resultado_p95_subida_10='CUMPLE'
+    else:
+       matricula3_resultado_p105_subida_10='NO CUMPLE'
+    
+    #bajada 0.05
+    matricula3_posicion_prueba_p5_bajada_10 = math.ceil(num_filas_10*0.05)
+    matricula3_rango10=matricula3_rango10.sort_values(by='Velocidad de bajada [Kbps]')
+    fila_bajada_p5_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p5_bajada_10-1]
+    matricula3_prueba_p5_bajada_10 = fila_bajada_p5_10['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p5_bajada_10 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p5_bajada_10='CUMPLE'
+    else:
+       matricula3_resultado_p5_bajada_10='NO CUMPLE'
+    #bajada 0.95
+    matricula3_posicion_prueba_p95_bajada_10 = math.ceil(num_filas_10*0.95)
+    fila_bajada_p95_10 = matricula3_rango10.iloc[matricula3_posicion_prueba_p95_bajada_10-1]
+    matricula3_prueba_p95_bajada_10 = fila_bajada_p95_10['Velocidad de bajada [Kbps]']
+    if matricula3_prueba_p95_bajada_10 >= matricula3_velocidad_bajada:
+       matricula3_resultado_p95_bajada_10='CUMPLE'
+    else:
+       matricula3_resultado_p95_bajada_10='NO CUMPLE'
+    
+#voy acaaaaaaa
 
 matricula3_rango11 = matricula3[(matricula3['Rango'] == 11)]
 
