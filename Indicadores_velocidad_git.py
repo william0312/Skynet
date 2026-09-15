@@ -51,7 +51,7 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
     #filtros
     dataframe_1=dataframe_1[['Numero de contrato','Departamento','Ciudad','Identificador beneficiario','Grupo','Perfil','Zona','Velocidad de subida [Kbps]','Velocidad de bajada [Kbps]','Fecha de programacion','Fecha de ejecucion','Rango','Duracion de la prueba [s]','Dispositivo','Tipo de solucion','Tipo de centro digital','Estado de la prueba','Identificador de la prueba','Centro poblado','Dane institucion educativa','Tipo','Estado']]
     print (dataframe_1.shape)
-    dataframe_1.head(30)
+    print (dataframe_1.head(30))
     dataframe_1 = dataframe_1[(dataframe_1['Estado'] == 'EN OPERACION')]
     print ("operacion")
     print (dataframe_1.shape)
