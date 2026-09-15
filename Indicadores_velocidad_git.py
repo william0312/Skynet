@@ -42,9 +42,9 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
 
     dataframe_1=dataframe[['Numero de contrato','Departamento','Ciudad','Identificador beneficiario','Grupo','Perfil','Zona','Velocidad de subida [Kbps]','Velocidad de bajada [Kbps]','Fecha de programacion','Fecha de ejecucion','Rango','Duracion de la prueba [s]','Dispositivo','Tipo de solucion','Tipo de centro digital','Estado de la prueba','Identificador de la prueba','Centro poblado','Dane institucion educativa','Tipo']]
     # Filtrar solo la columna 'Identificador beneficiario' y 'estado' de dataframe2
-    dataframe_2 = dataframe2[['Id_Beneficiario', 'Estado']]
+    dataframe_2 = dataframe2[['Identificador beneficiario', 'Estado']]
     # Realizar el inner join
-    dataframe_1 = pd.merge(dataframe_1, dataframe_2, left_on='Identificador beneficiario', right_on='Id_Beneficiario', how='inner')
+    dataframe_1 = pd.merge(dataframe_1, dataframe_2, left_on='Identificador beneficiario', right_on='Identificador beneficiario', how='inner')
 
     #filtros
     dataframe_1=dataframe_1[['Numero de contrato','Departamento','Ciudad','Identificador beneficiario','Grupo','Perfil','Zona','Velocidad de subida [Kbps]','Velocidad de bajada [Kbps]','Fecha de programacion','Fecha de ejecucion','Rango','Duracion de la prueba [s]','Dispositivo','Tipo de solucion','Tipo de centro digital','Estado de la prueba','Identificador de la prueba','Centro poblado','Dane institucion educativa','Tipo','Estado']]
