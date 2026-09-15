@@ -47,21 +47,12 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
     dataframe_1 = pd.merge(dataframe_1, dataframe_2, left_on='Identificador beneficiario', right_on='Identificador beneficiario', how='inner')
 
     dataframe_1['Estado'] = dataframe_1['Estado'].astype(str).str.strip()
-    print (dataframe_1.shape)
-    print (dataframe_2.shape)
     #filtros
     dataframe_1=dataframe_1[['Numero de contrato','Departamento','Ciudad','Identificador beneficiario','Grupo','Perfil','Zona','Velocidad de subida [Kbps]','Velocidad de bajada [Kbps]','Fecha de programacion','Fecha de ejecucion','Rango','Duracion de la prueba [s]','Dispositivo','Tipo de solucion','Tipo de centro digital','Estado de la prueba','Identificador de la prueba','Centro poblado','Dane institucion educativa','Tipo','Estado']]
-    print (dataframe_1.shape)
-    print (dataframe_1.head(30))
     dataframe_1 = dataframe_1[(dataframe_1['Estado'] == 'EN OPERACION')]
-    print ("operacion")
-    print (dataframe_1.shape)
     dataframe_1 = dataframe_1[~(dataframe_1['Tipo'] == 'forzada')]
-    print ("forzada")
-    print (dataframe_1.shape)
     dataframe_1['Identificador de la prueba'] = dataframe_1['Identificador de la prueba'].astype(str)
     dataframe_1 = dataframe_1[(dataframe_1['Rango'] >= 6) & (dataframe_1['Rango'] <= 20)]
-    print (dataframe_1.shape) 
     '''
     #filtro por matricula
     matricula1 = dataframe_1[dataframe_1['Matricula'].astype(str) == "Matricula <= 50"]
@@ -473,7 +464,6 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
 
     #subida 0.05
     num_filas_13 = (len(matricula1_rango13))
-    print (matricula1_rango13.shape)
     matricula1_posicion_prueba_p5_subida_13 = math.ceil(num_filas_13*0.05)
 
     matricula1_prueba_p5_subida_13 = 0 # Initialize
