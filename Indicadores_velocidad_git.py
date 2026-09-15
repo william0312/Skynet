@@ -46,10 +46,17 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
     # Realizar el inner join
     dataframe_1 = pd.merge(dataframe_1, dataframe_2, left_on='Identificador beneficiario', right_on='Identificador beneficiario', how='inner')
 
+    print (dataframe_1.shape)
+    print (dataframe_2.shape)
     #filtros
     dataframe_1=dataframe_1[['Numero de contrato','Departamento','Ciudad','Identificador beneficiario','Grupo','Perfil','Zona','Velocidad de subida [Kbps]','Velocidad de bajada [Kbps]','Fecha de programacion','Fecha de ejecucion','Rango','Duracion de la prueba [s]','Dispositivo','Tipo de solucion','Tipo de centro digital','Estado de la prueba','Identificador de la prueba','Centro poblado','Dane institucion educativa','Tipo','Estado']]
+    print (dataframe_1.shape)
     dataframe_1 = dataframe_1[(dataframe_1['Estado'] == 'EN OPERACIÓN')]
+    print ("operacion")
+    print (dataframe_1.shape)
     dataframe_1 = dataframe_1[~(dataframe_1['Tipo'] == 'forzada')]
+    print ("forzada")
+    print (dataframe_1.shape)
     dataframe_1['Identificador de la prueba'] = dataframe_1['Identificador de la prueba'].astype(str)
     dataframe_1 = dataframe_1[(dataframe_1['Rango'] >= 6) & (dataframe_1['Rango'] <= 20)]
     print (dataframe_1.shape) 
