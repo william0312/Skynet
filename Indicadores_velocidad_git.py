@@ -1,15 +1,16 @@
 # -*- coding: latin-1 -*-
-import numpy as np
 import math
 import pandas as pd
 from datetime import datetime
 import pytz
 import smtplib
 from email.message import EmailMessage
+
 from openpyxl import load_workbook
 from openpyxl.styles import Alignment
 from openpyxl.styles import PatternFill
 from openpyxl.styles import Font
+
 
 
 def ejecutar_cruce_seguro(sitios_activos,velocidad):
