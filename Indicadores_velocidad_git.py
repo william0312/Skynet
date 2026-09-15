@@ -51,7 +51,7 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
     dataframe_1 = dataframe_1[(dataframe_1['Estado'] == 'EN OPERACIÓN')]
     dataframe_1 = dataframe_1[~(dataframe_1['Tipo'] == 'forzada')]
     dataframe_1['Identificador de la prueba'] = dataframe_1['Identificador de la prueba'].astype(str)
-    dataframe_1 = dataframe_1[(dataframe_1['Rango'] >= 6) & (dataframe_1['Rango'] <= 12)]
+    dataframe_1 = dataframe_1[(dataframe_1['Rango'] >= 6) & (dataframe_1['Rango'] <= 20)]
     #dataframe_1 = dataframe_1[~(dataframe_1['Grupo'] == 'GRUPO 3A')]
 
     '''
