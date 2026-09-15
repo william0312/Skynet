@@ -15,6 +15,9 @@ from openpyxl.styles import Font
 
 def ejecutar_cruce_seguro(sitios_activos,velocidad):
 
+    
+    gray_fill = PatternFill (start_color='D3D3D3', end_color='D3D3D3', fill_type='solid')
+    white_font = Font(color='FFFFFF')
     dataframe = velocidad.copy()
     dataframe2 = sitios_activos.copy()
     matricula1_velocidad_bajada_mostrar = 26.40
