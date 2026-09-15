@@ -46,6 +46,7 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
     # Realizar el inner join
     dataframe_1 = pd.merge(dataframe_1, dataframe_2, left_on='Identificador beneficiario', right_on='Identificador beneficiario', how='inner')
 
+    dataframe_1['Estado'] = dataframe_1['Estado'].astype(str).str.strip()
     print (dataframe_1.shape)
     print (dataframe_2.shape)
     #filtros
