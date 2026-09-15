@@ -95,6 +95,7 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
 
     #bajada 0.05
     matricula1_posicion_prueba_p5_bajada_6 = math.ceil(num_filas_6*0.05)
+    print (matricula1_posicion_prueba_p5_bajada_6)
     matricula1_prueba_p5_bajada_6 = 0 # Initialize
     matricula1_resultado_p5_bajada_6 = 'NO APLICA' # Initialize
     matricula1_posicion_prueba_p95_bajada_6 = math.ceil(num_filas_6*0.95) # Keep outside if as it's just a calculation
@@ -121,6 +122,7 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
         #bajada 0.05
         matricula1_rango6=matricula1_rango6.sort_values(by='Velocidad de bajada [Kbps]')
         fila_bajada_p5_6 = matricula1_rango6.iloc[matricula1_posicion_prueba_p5_bajada_6-1]
+        print(fila_bajada_p5_6)
         matricula1_prueba_p5_bajada_6 = fila_bajada_p5_6['Velocidad de bajada [Kbps]']
         if matricula1_prueba_p5_bajada_6 >= matricula1_velocidad_bajada:
            matricula1_resultado_p5_bajada_6='CUMPLE'
