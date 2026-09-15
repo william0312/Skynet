@@ -1970,6 +1970,7 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
 
     #subida 0.05
     num_filas_13 = (len(matricula3_rango13))
+    print (num_filas_13) 
     matricula3_posicion_prueba_p5_subida_13 = math.ceil(num_filas_13*0.05)
     matricula3_rango13=matricula3_rango13.sort_values(by='Velocidad de subida [Kbps]')
     fila_subida_p5_13 = matricula3_rango13.iloc[matricula3_posicion_prueba_p5_subida_13-1]
