@@ -10,7 +10,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment
 from openpyxl.styles import PatternFill
 from openpyxl.styles import Font
-
+#bck
 
 
 def ejecutar_cruce_seguro(sitios_activos,velocidad):
