@@ -3014,7 +3014,7 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
 
 
 
-
+        print "aqui falla"
         columns=['B','C','D','E','F','G','H','I','J']
         matricula1_posicion_prueba_p5_bajada = globals()[f"matricula1_posicion_prueba_p5_bajada_{sheet_name}"]
         matricula1_prueba_p5_bajada = globals()[f"matricula1_prueba_p5_bajada_{sheet_name}"]
