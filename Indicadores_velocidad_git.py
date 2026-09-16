@@ -3024,7 +3024,8 @@ def ejecutar_cruce_seguro(sitios_activos,velocidad):
         matricula1_prueba_p95_bajada = globals()[f"matricula1_prueba_p95_bajada_{sheet_name}"]
         matricula1_resultado_p95_bajada = globals()[f"matricula1_resultado_p95_bajada_{sheet_name}"]
 
-
+        print ("aqui falla2")
+        print (matricula1_posicion_prueba_p5_bajada)        
         sub_titles4 = ["Dowload","PERFIL_1",matricula1_velocidad_bajada_mostrar,matricula1_posicion_prueba_p5_bajada,matricula1_prueba_p5_bajada,matricula1_resultado_p5_bajada,matricula1_posicion_prueba_p95_bajada,matricula1_prueba_p95_bajada,matricula1_resultado_p95_bajada]
         for col, sub_title4 in zip(columns, sub_titles4):
             sheet[f'{col}7'] = sub_title4
