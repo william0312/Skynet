@@ -1,15 +1,15 @@
 # -*- coding: latin-1 -*-
-import math
-import pandas as pd
 from datetime import datetime
-import pytz
+import math
 import smtplib
+import pytz
 from email.message import EmailMessage
 
+from google.colab import files
 from openpyxl import load_workbook
-from openpyxl.styles import Alignment
-from openpyxl.styles import PatternFill
-from openpyxl.styles import Font
+from openpyxl.styles import Alignment, Font, PatternFill
+import pandas as pd
+
 
 def procesar_metricas_matricula(df_matricula, vel_subida, vel_bajada):
   """Procesa de forma iterativa los rangos del 6 al 20 guardando las métricas en un diccionario anidado sin usar globals()."""
@@ -78,7 +78,7 @@ def procesar_metricas_matricula(df_matricula, vel_subida, vel_bajada):
 
 
 def ejecutar_cruce_seguro(sitios_activos, velocidad):
-gray_fill = PatternFill(
+  gray_fill = PatternFill(
       start_color='D3D3D3', end_color='D3D3D3', fill_type='solid'
   )
   white_font = Font(color='FFFFFF')
@@ -111,7 +111,7 @@ gray_fill = PatternFill(
       'Tipo',
   ]
 
-  # 2. CREACIÓN DE dataframe_1 (DEBE IR AQUÍ, ANTES DEL BUCLE DE PERFILES)
+  # 2. CREACIÓN Y LIMPIEZA DE dataframe_1
   dataframe_1 = dataframe[cols_df1]
   dataframe_2 = dataframe2[['Identificador beneficiario', 'Estado']]
 
@@ -134,174 +134,202 @@ gray_fill = PatternFill(
       (dataframe_1['Rango'] >= 6) & (dataframe_1['Rango'] <= 20)
   ]
 
-  # Configuración por perfil: (Nombre, vel_baj_show, vel_baj, vel_sub_show, vel_sub)
-perfiles_config = {
-    'PERFIL 1': ('PERFIL_1', 26.40, 26400, 6.60, 6600),
-    'PERFIL 2': ('PERFIL_2', 28.50, 28500, 7.13, 7130),
-    'PERFIL 3+': ('PERFIL_3+', 32.00, 32000, 8.00, 8000),
-    'PERFIL 4+': ('PERFIL_4+', 41.90, 41900, 10.48, 10480),
-}
-
-for nombre_perfil, (
-    tag_archivo,
-    baj_show,
-    vel_bajada,
-    sub_show,
-    vel_subida,
-) in perfiles_config.items():
-  # Filtrar exactamente por el string del Perfil
-  df_perfil = dataframe_1[
-      dataframe_1['Perfil'].astype(str).str.strip() == nombre_perfil
+  # 3. TÍTULOS Y SUBTÍTULOS DE LAS HOJAS
+  main_title = '2.3.4.4.2 VELOCIDAD EFECTIVA MÍNIMA DE TRANSMISIÓN DE DATOS'
+  sub_titles = ['Año-Mes(AAAA-MM)']
+  sub_titles2 = ['2026-06']
+  sub_titles3 = [
+      'Sentido',
+      'Matricula',
+      'Velocidad Por Matricula',
+      'Posición de la prueba',
+      'Prueba P5%',
+      'Resultado',
+      'Posición de la prueba',
+      'Prueba P95%',
+      'Resultado',
+  ]
+  sub_titles5 = [
+      'Sentido',
+      'Matricula',
+      'Velocidad Por Matricula',
+      'Posición de la prueba',
+      'Prueba P5%',
+      'Resultado',
+      'Posición de la prueba',
+      'Prueba P95%',
+      'Resultado',
   ]
 
-  # Calcular las métricas utilizando la función
-  metricas = procesar_metricas_matricula(df_perfil, vel_subida, vel_bajada)
+  # 4. CONFIGURACIÓN POR PERFIL: (Perfil_Filtro, Tag_Archivo, vel_baj_show, vel_baj, vel_sub_show, vel_sub)
+  perfiles_config = {
+      'PERFIL 1': ('PERFIL_1', 26.40, 26400, 6.60, 6600),
+      'PERFIL 2': ('PERFIL_2', 28.50, 28500, 7.13, 7130),
+      'PERFIL 3+': ('PERFIL_3+', 32.00, 32000, 8.00, 8000),
+      'PERFIL 4+': ('PERFIL_4+', 41.90, 41900, 10.48, 10480),
+  }
 
-  output_path = f'/content/20260617_{tag_archivo}.xlsx'
-
-  # Escribir primero los DataFrames en cada pestaña
-  with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
-    # Pestaña Principal del Perfil
-    df_perfil.to_excel(
-        writer, sheet_name=tag_archivo, index=False, startrow=13, startcol=1
-    )
-
-    # Pestañas de los Rangos (6 al 20)
-    for r in range(6, 21):
-      df_r = df_perfil[df_perfil['Rango'] == r]
-      df_r.to_excel(
-          writer, sheet_name=str(r), index=False, startrow=13, startcol=1
-      )
-
-    workbook = writer.book
-
-  # Aplicar formatos y cabeceras dinámicas en openpyxl
-  for sheet_name in workbook.sheetnames[1:]:
-    sheet = workbook[sheet_name]
-    rango = int(sheet_name)
-
-    sheet.merge_cells('A1:V1')
-    sheet['A1'] = main_title
-    sheet['A1'].alignment = Alignment(horizontal='center', vertical='center')
-    sheet['A1'].fill = gray_fill
-    sheet['A1'].font = white_font
-
-    for col, st1 in zip(['B'], sub_titles):
-      sheet[f'{col}3'] = st1
-      sheet[f'{col}3'].alignment = Alignment(
-          horizontal='center', vertical='center'
-      )
-      sheet[f'{col}3'].fill = gray_fill
-      sheet[f'{col}3'].font = white_font
-
-    for col, st2 in zip(['B'], sub_titles2):
-      sheet[f'{col}4'] = st2
-      sheet[f'{col}4'].alignment = Alignment(
-          horizontal='center', vertical='center'
-      )
-
-    columns = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    for col, st3 in zip(columns, sub_titles3):
-      sheet[f'{col}6'] = st3
-      sheet[f'{col}6'].alignment = Alignment(
-          horizontal='center', vertical='center'
-      )
-      sheet[f'{col}6'].fill = gray_fill
-      sheet[f'{col}6'].font = white_font
-
-    # Extraer métricas reales del diccionario
-    pos_p5_baj = metricas[rango]['pos_p5_baj']
-    val_p5_baj = metricas[rango]['val_p5_baj']
-    res_p5_baj = metricas[rango]['res_p5_baj']
-
-    pos_p95_baj = metricas[rango]['pos_p95_baj']
-    val_p95_baj = metricas[rango]['val_p95_baj']
-    res_p95_baj = metricas[rango]['res_p95_baj']
-
-    sub_titles4 = [
-        'Dowload',
-        tag_archivo,
-        baj_show,
-        pos_p5_baj,
-        val_p5_baj,
-        res_p5_baj,
-        pos_p95_baj,
-        val_p95_baj,
-        res_p95_baj,
+  for nombre_perfil, (
+      tag_archivo,
+      baj_show,
+      vel_bajada,
+      sub_show,
+      vel_subida,
+  ) in perfiles_config.items():
+    # Filtrar exactamente por el string del Perfil
+    df_perfil = dataframe_1[
+        dataframe_1['Perfil'].astype(str).str.strip() == nombre_perfil
     ]
-    for col, st4 in zip(columns, sub_titles4):
-      sheet[f'{col}7'] = st4
-      sheet[f'{col}7'].alignment = Alignment(
-          horizontal='center', vertical='center'
+
+    # Calcular las métricas utilizando la función
+    metricas = procesar_metricas_matricula(df_perfil, vel_subida, vel_bajada)
+
+    output_path = f'/content/20260617_{tag_archivo}.xlsx'
+
+    # Escribir primero los DataFrames en cada pestaña
+    with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+      # Pestaña Principal del Perfil
+      df_perfil.to_excel(
+          writer, sheet_name=tag_archivo, index=False, startrow=13, startcol=1
       )
 
-    for col, st5 in zip(columns, sub_titles5):
-      sheet[f'{col}9'] = st5
-      sheet[f'{col}9'].alignment = Alignment(
-          horizontal='center', vertical='center'
-      )
-      sheet[f'{col}9'].fill = gray_fill
-      sheet[f'{col}9'].font = white_font
+      # Pestañas de los Rangos (6 al 20)
+      for r in range(6, 21):
+        df_r = df_perfil[df_perfil['Rango'] == r]
+        df_r.to_excel(
+            writer, sheet_name=str(r), index=False, startrow=13, startcol=1
+        )
 
-    pos_p5_sub = metricas[rango]['pos_p5_sub']
-    val_p5_sub = metricas[rango]['val_p5_sub']
-    res_p5_sub = metricas[rango]['res_p5_sub']
+      workbook = writer.book
 
-    pos_p95_sub = metricas[rango]['pos_p95_sub']
-    val_p95_sub = metricas[rango]['val_p95_sub']
-    res_p95_sub = metricas[rango]['res_p95_sub']
+    # Aplicar formatos y cabeceras dinámicas en openpyxl
+    for sheet_name in workbook.sheetnames[1:]:
+      sheet = workbook[sheet_name]
+      rango = int(sheet_name)
 
-    sub_titles6 = [
-        'Upload',
-        tag_archivo,
-        sub_show,
-        pos_p5_sub,
-        val_p5_sub,
-        res_p5_sub,
-        pos_p95_sub,
-        val_p95_sub,
-        res_p95_sub,
-    ]
-    for col, st6 in zip(columns, sub_titles6):
-      sheet[f'{col}10'] = st6
-      sheet[f'{col}10'].alignment = Alignment(
-          horizontal='center', vertical='center'
-      )
+      sheet.merge_cells('A1:V1')
+      sheet['A1'] = main_title
+      sheet['A1'].alignment = Alignment(horizontal='center', vertical='center')
+      sheet['A1'].fill = gray_fill
+      sheet['A1'].font = white_font
 
-    for row in [1, 3, 6, 9, 14]:
-      sheet.row_dimensions[row].height = 60
+      for col, st1 in zip(['B'], sub_titles):
+        sheet[f'{col}3'] = st1
+        sheet[f'{col}3'].alignment = Alignment(
+            horizontal='center', vertical='center'
+        )
+        sheet[f'{col}3'].fill = gray_fill
+        sheet[f'{col}3'].font = white_font
 
-    all_cols = [
-        'A',
-        'B',
-        'C',
-        'D',
-        'E',
-        'F',
-        'G',
-        'H',
-        'I',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'O',
-        'P',
-        'Q',
-        'R',
-        'S',
-        'T',
-        'U',
-        'V',
-    ]
-    for col in all_cols:
-      sheet[f'{col}14'].alignment = Alignment(
-          horizontal='center', vertical='center'
-      )
-      sheet[f'{col}14'].fill = gray_fill
-      sheet[f'{col}14'].font = white_font
+      for col, st2 in zip(['B'], sub_titles2):
+        sheet[f'{col}4'] = st2
+        sheet[f'{col}4'].alignment = Alignment(
+            horizontal='center', vertical='center'
+        )
 
-  workbook.save(output_path)
-  files.download(output_path)
+      columns = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+      for col, st3 in zip(columns, sub_titles3):
+        sheet[f'{col}6'] = st3
+        sheet[f'{col}6'].alignment = Alignment(
+            horizontal='center', vertical='center'
+        )
+        sheet[f'{col}6'].fill = gray_fill
+        sheet[f'{col}6'].font = white_font
 
+      # Extraer métricas reales del diccionario
+      pos_p5_baj = metricas[rango]['pos_p5_baj']
+      val_p5_baj = metricas[rango]['val_p5_baj']
+      res_p5_baj = metricas[rango]['res_p5_baj']
+
+      pos_p95_baj = metricas[rango]['pos_p95_baj']
+      val_p95_baj = metricas[rango]['val_p95_baj']
+      res_p95_baj = metricas[rango]['res_p95_baj']
+
+      sub_titles4 = [
+          'Dowload',
+          tag_archivo,
+          baj_show,
+          pos_p5_baj,
+          val_p5_baj,
+          res_p5_baj,
+          pos_p95_baj,
+          val_p95_baj,
+          res_p95_baj,
+      ]
+      for col, st4 in zip(columns, sub_titles4):
+        sheet[f'{col}7'] = st4
+        sheet[f'{col}7'].alignment = Alignment(
+            horizontal='center', vertical='center'
+        )
+
+      for col, st5 in zip(columns, sub_titles5):
+        sheet[f'{col}9'] = st5
+        sheet[f'{col}9'].alignment = Alignment(
+            horizontal='center', vertical='center'
+        )
+        sheet[f'{col}9'].fill = gray_fill
+        sheet[f'{col}9'].font = white_font
+
+      pos_p5_sub = metricas[rango]['pos_p5_sub']
+      val_p5_sub = metricas[rango]['val_p5_sub']
+      res_p5_sub = metricas[rango]['res_p5_sub']
+
+      pos_p95_sub = metricas[rango]['pos_p95_sub']
+      val_p95_sub = metricas[rango]['val_p95_sub']
+      res_p95_sub = metricas[rango]['res_p95_sub']
+
+      sub_titles6 = [
+          'Upload',
+          tag_archivo,
+          sub_show,
+          pos_p5_sub,
+          val_p5_sub,
+          res_p5_sub,
+          pos_p95_sub,
+          val_p95_sub,
+          res_p95_sub,
+      ]
+      for col, st6 in zip(columns, sub_titles6):
+        sheet[f'{col}10'] = st6
+        sheet[f'{col}10'].alignment = Alignment(
+            horizontal='center', vertical='center'
+        )
+
+      for row in [1, 3, 6, 9, 14]:
+        sheet.row_dimensions[row].height = 60
+
+      all_cols = [
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'J',
+          'K',
+          'L',
+          'M',
+          'N',
+          'O',
+          'P',
+          'Q',
+          'R',
+          'S',
+          'T',
+          'U',
+          'V',
+      ]
+      for col in all_cols:
+        sheet[f'{col}14'].alignment = Alignment(
+            horizontal='center', vertical='center'
+        )
+        sheet[f'{col}14'].fill = gray_fill
+        sheet[f'{col}14'].font = white_font
+
+    workbook.save(output_path)
+    files.download(output_path)
+
+  return output_path
