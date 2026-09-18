@@ -78,7 +78,7 @@ def procesar_metricas_matricula(df_matricula, vel_subida, vel_bajada):
 
 
 def ejecutar_cruce_seguro(sitios_activos, velocidad):
-  gray_fill = PatternFill(
+gray_fill = PatternFill(
       start_color='D3D3D3', end_color='D3D3D3', fill_type='solid'
   )
   white_font = Font(color='FFFFFF')
@@ -86,6 +86,7 @@ def ejecutar_cruce_seguro(sitios_activos, velocidad):
   dataframe = velocidad.copy()
   dataframe2 = sitios_activos.copy()
 
+  # 1. SELECCIÓN DE COLUMNAS Y PREPARACIÓN
   cols_df1 = [
       'Numero de contrato',
       'Departamento',
@@ -109,9 +110,11 @@ def ejecutar_cruce_seguro(sitios_activos, velocidad):
       'Dane institucion educativa',
       'Tipo',
   ]
-  dataframe_1 = dataframe[cols_df1]
 
+  # 2. CREACIÓN DE dataframe_1 (DEBE IR AQUÍ, ANTES DEL BUCLE DE PERFILES)
+  dataframe_1 = dataframe[cols_df1]
   dataframe_2 = dataframe2[['Identificador beneficiario', 'Estado']]
+
   dataframe_1 = pd.merge(
       dataframe_1,
       dataframe_2,
@@ -120,6 +123,7 @@ def ejecutar_cruce_seguro(sitios_activos, velocidad):
       how='inner',
   )
 
+  # Limpieza y filtrado inicial de datos
   dataframe_1['Estado'] = dataframe_1['Estado'].astype(str).str.strip()
   dataframe_1 = dataframe_1[(dataframe_1['Estado'] == 'EN OPERACION')]
   dataframe_1 = dataframe_1[~(dataframe_1['Tipo'] == 'forzada')]
