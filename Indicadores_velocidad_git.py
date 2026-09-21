@@ -113,13 +113,13 @@ def ejecutar_cruce_seguro(sitios_activos, velocidad):
 
   # 2. CREACIÓN Y LIMPIEZA DE dataframe_1
   dataframe_1 = dataframe[cols_df1]
-  dataframe_2 = dataframe2[['Identificador beneficiario', 'Estado']]
+  dataframe_2 = dataframe2[['Id_Beneficiario', 'Estado']]
 
   dataframe_1 = pd.merge(
       dataframe_1,
       dataframe_2,
       left_on='Identificador beneficiario',
-      right_on='Identificador beneficiario',
+      right_on='Id_Beneficiario',
       how='inner',
   )
 
