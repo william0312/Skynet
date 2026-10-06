@@ -670,7 +670,7 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
 #    print("---------------------------------------------------------\n")
 
     columnas_df_final = [
-        'bandera_inicio_parada3','ID_x','TICKETCCC','ID_Beneficiario','DEPARTAMENTO','CIUDAD','GRUPO','DDA','CATEGORIA','SUBCATEGORIA','PRIORIDAD','descripcion_creacion','Fecha_Creacion','Estado_x','Fecha_Cierre_PQRS','fecha_creacion_agenda','fecha_maxima_atencion','Nueva_fecha_maxima_atencion','DDA_Horas','Inicio_Parada_Reloj','Fin_Parada_Reloj','fecha_final','minutos_disponibles','bandera_inicio_parada3','fecha_visita','PQRS'
+        'bandera_inicio_parada3','ID_x','TICKETCCC','ID_Beneficiario','DEPARTAMENTO','CIUDAD','GRUPO','DDA','CATEGORIA','SUBCATEGORIA','PRIORIDAD','descripcion_creacion','Fecha_Creacion','Estado_x','fecha_cierre_pqrs','fecha_creacion_agenda','fecha_maxima_atencion','Nueva_fecha_maxima_atencion','DDA_Horas','Inicio_Parada_Reloj','Fin_Parada_Reloj','fecha_final','minutos_disponibles','bandera_inicio_parada3','fecha_visita','PQRS'
         ]
     # Subconjuntos con columnas relevantes
     df_final = df_final[columnas_df_final]
