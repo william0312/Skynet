@@ -318,9 +318,9 @@ def ejecutar_cruce_seguro(PQRSD_Evento_Excepcional_Interventoria,PQRSD_Formato_S
     condicion = pqrsd_unido_2["PRIORIDAD"] != 1
 
     # 2. Agrupamos las columnas que vamos a "Actualizar"
-    cols_consolidados = ['Consolidado_Lunes', 'Consolidado_Martes', 'Consolidado_Miercoles', 'Consolidado_Jueves', 'Consolidado_Viernes']
-    cols_inicios = ['inicio_lunes', 'inicio_martes', 'inicio_miercoles', 'inicio_jueves', 'inicio_viernes']
-    cols_fines = ['fin_lunes', 'fin_martes', 'fin_miercoles', 'fin_jueves', 'fin_viernes']
+    cols_consolidados = ['Consolidado_Lunes', 'Consolidado_Martes', 'Consolidado_Miercoles', 'Consolidado_Jueves', 'Consolidado_Viernes','Consolidado_Sabado','Consolidado_Domingo']
+    cols_inicios = ['inicio_lunes', 'inicio_martes', 'inicio_miercoles', 'inicio_jueves', 'inicio_viernes','inicio_sabado','inicio_domingo']
+    cols_fines = ['fin_lunes', 'fin_martes', 'fin_miercoles', 'fin_jueves', 'fin_viernes','fin_sabado','fin_domingo']
 
     # 3. Hacemos el "UPDATE" masivo
     pqrsd_unido_2.loc[condicion, cols_consolidados] = "00:00:00 a 23:59:00"
